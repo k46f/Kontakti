@@ -17,6 +17,14 @@ public class ViewContact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_contact);
+
+        phoneView = (TextView) findViewById(R.id.phoneView);
+        addressView = (TextView) findViewById(R.id.addressView);
+        emailView = (TextView) findViewById(R.id.emailView);
+        facebookView = (TextView) findViewById(R.id.facebookView);
+        birthdayView = (TextView) findViewById(R.id.birthdayView);
+        fullName = (TextView) findViewById(R.id.fullname);
+        photoView = (ImageView) findViewById(R.id.photoView);
     }
 
     public void editContact(View v) {
