@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class ViewContact extends AppCompatActivity {
 
-    private TextView phoneView, adressView, emailView, facebookView, birthdayView, fullName;
+    private TextView phoneView, addressView, emailView, facebookView, birthdayView, fullName;
     private ImageView photoView;
 
     @Override

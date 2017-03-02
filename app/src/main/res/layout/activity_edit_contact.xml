@@ -15,7 +15,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         app:srcCompat="@drawable/default_user"
-        android:id="@+id/imageView"
+        android:id="@+id/photoView"
         android:layout_marginTop="46dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -36,7 +36,7 @@
         android:layout_width="20dp"
         android:layout_height="30dp"
         app:srcCompat="@drawable/phone"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/photoView"
         android:layout_alignParentStart="true"
         android:layout_marginStart="14dp"
         android:layout_marginTop="42dp"
@@ -84,9 +84,9 @@
         android:inputType="textPersonName"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/photoView"
         android:layout_centerHorizontal="true"
-        android:id="@+id/editText"
+        android:id="@+id/nameText"
         android:hint="Name" />
 
     <EditText
@@ -95,9 +95,9 @@
         android:inputType="phone"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/nameText"
         android:layout_centerHorizontal="true"
-        android:id="@+id/editText2"
+        android:id="@+id/phoneText"
         android:hint="Phone"
         android:layout_above="@+id/imageAdress" />
 
@@ -107,11 +107,11 @@
         android:inputType="textPostalAddress"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/editText2"
-        android:id="@+id/editText3"
+        android:layout_below="@+id/phoneText"
+        android:id="@+id/addressText"
         android:hint="Adress"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2" />
+        android:layout_alignStart="@+id/phoneText"
+        android:layout_alignEnd="@+id/phoneText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -119,8 +119,8 @@
         android:inputType="textEmailAddress"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/editText3"
-        android:layout_alignStart="@+id/editText3"
+        android:layout_below="@+id/addressText"
+        android:layout_alignStart="@+id/addressText"
         android:id="@+id/editText4"
         android:hint="Email" />
 
@@ -131,7 +131,7 @@
         android:ems="20"
         android:layout_below="@+id/editText4"
         android:layout_alignStart="@+id/editText4"
-        android:id="@+id/editText5"
+        android:id="@+id/facebookText"
         android:hint="Facebook" />
 
     <EditText
@@ -140,8 +140,8 @@
         android:inputType="date"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/editText5"
-        android:layout_alignStart="@+id/editText5"
+        android:layout_below="@+id/facebookText"
+        android:layout_alignStart="@+id/facebookText"
         android:id="@+id/editText7"
         android:hint="Birthday" />
 
@@ -150,7 +150,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:id="@+id/button2" />
