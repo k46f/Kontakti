@@ -84,7 +84,7 @@
         android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
+        android:id="@+id/phoneView"
         android:layout_above="@+id/imageAdress"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/imageView"
@@ -96,8 +96,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageAdress"
-        android:layout_alignStart="@+id/textView3"
-        android:id="@+id/textView4"
+        android:layout_alignStart="@+id/phoneView"
+        android:id="@+id/adressView"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -105,8 +105,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageEmail"
-        android:layout_alignStart="@+id/textView4"
-        android:id="@+id/textView5"
+        android:layout_alignStart="@+id/adressView"
+        android:id="@+id/emailView"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -114,8 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageFacebook"
-        android:layout_alignStart="@+id/textView5"
-        android:id="@+id/textView6"
+        android:layout_alignStart="@+id/emailView"
+        android:id="@+id/facebookView"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -123,8 +123,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageBirthday"
-        android:layout_alignStart="@+id/textView6"
-        android:id="@+id/textView7"
+        android:layout_alignStart="@+id/facebookView"
+        android:id="@+id/birthdayView"
         android:layout_alignParentEnd="true" />
 
     <android.support.design.widget.FloatingActionButton
