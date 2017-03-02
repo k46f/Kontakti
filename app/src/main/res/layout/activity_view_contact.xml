@@ -133,10 +133,10 @@
         android:clickable="true"
         app:fabSize="normal"
         app:srcCompat="@drawable/edit"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
         android:id="@+id/floatingActionButton2"
         android:onClick="editContact"
-        />
+        android:src="@android:drawable/ic_menu_edit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
