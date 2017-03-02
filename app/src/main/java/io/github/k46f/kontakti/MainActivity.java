@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void editContact(View v) {
         Context context = getApplicationContext();
-        Intent intent = new Intent(context, ViewContact.class);
+        Intent intent = new Intent(context, EditContact.class);
         startActivity(intent);
     }
 }
