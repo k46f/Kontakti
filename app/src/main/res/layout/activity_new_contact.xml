@@ -78,17 +78,6 @@
         android:id="@+id/imageBirthday"
         android:layout_alignStart="@+id/imageFacebook" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/edit"
-        android:id="@+id/floatingActionButton2"
-        android:src="@android:drawable/ic_menu_save"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -144,7 +133,8 @@
         android:layout_alignStart="@+id/editText4"
         android:id="@+id/editText5"
         android:layout_toStartOf="@+id/floatingActionButton2"
-        android:hint="Facebook" />
+        android:hint="Facebook"
+        android:layout_alignEnd="@+id/editText4" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -155,7 +145,6 @@
         android:layout_below="@+id/editText5"
         android:layout_alignStart="@+id/editText5"
         android:id="@+id/editText7"
-        android:layout_toStartOf="@+id/floatingActionButton2"
         android:hint="Birthday" />
 
     <Button
@@ -167,5 +156,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:id="@+id/button2" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/edit"
+        android:id="@+id/floatingActionButton2"
+        android:src="@android:drawable/ic_menu_save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
