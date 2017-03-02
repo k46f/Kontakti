@@ -121,7 +121,7 @@
         android:ems="20"
         android:layout_below="@+id/addressText"
         android:layout_alignStart="@+id/addressText"
-        android:id="@+id/editText4"
+        android:id="@+id/emailText"
         android:hint="Email" />
 
     <EditText
@@ -129,12 +129,12 @@
         android:layout_height="wrap_content"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/editText4"
-        android:layout_alignStart="@+id/editText4"
+        android:layout_below="@+id/emailText"
+        android:layout_alignStart="@+id/emailText"
         android:id="@+id/facebookText"
         android:layout_toStartOf="@+id/floatingActionButton2"
         android:hint="Facebook"
-        android:layout_alignEnd="@+id/editText4" />
+        android:layout_alignEnd="@+id/emailText" />
 
     <EditText
         android:layout_width="wrap_content"

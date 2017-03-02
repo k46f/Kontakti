@@ -23,12 +23,12 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:text="Add new contact"
+        android:text="Edit contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/fullname"
+        android:id="@+id/editContact"
         android:textSize="25sp"
         />
 
@@ -116,21 +116,10 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/addressText"
-        android:layout_alignStart="@+id/addressText"
-        android:id="@+id/editText4"
-        android:hint="Email" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:ems="20"
-        android:layout_below="@+id/editText4"
-        android:layout_alignStart="@+id/editText4"
+        android:layout_below="@+id/emailText"
+        android:layout_alignStart="@+id/emailText"
         android:id="@+id/facebookText"
         android:hint="Facebook" />
 
@@ -142,7 +131,7 @@
         android:ems="20"
         android:layout_below="@+id/facebookText"
         android:layout_alignStart="@+id/facebookText"
-        android:id="@+id/editText7"
+        android:id="@+id/birthdayText"
         android:hint="Birthday" />
 
     <Button
@@ -153,7 +142,7 @@
         android:layout_above="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:id="@+id/button2" />
+        android:id="@+id/changePhotoButton" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -175,5 +164,16 @@
         android:src="@android:drawable/ic_menu_save"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:textSize="10sp"
+        android:ems="20"
+        android:id="@+id/emailText"
+        android:hint="Email"
+        android:layout_below="@+id/addressText"
+        android:layout_alignStart="@+id/addressText" />
 
 </RelativeLayout>
