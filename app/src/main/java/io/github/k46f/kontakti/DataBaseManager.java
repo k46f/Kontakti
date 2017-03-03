@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseManager extends SQLiteOpenHelper {
 
     private Context ctx;
+    private DataBaseManager dataBaseManager;
+    private SQLiteDatabase dataBase;
 
     public DataBaseManager(Context context) {
         super(context, "db_kontakti", null, 1);
@@ -26,5 +28,14 @@ public class DataBaseManager extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXIST db_kontakti");
         onCreate(db);
+    }
+
+    public void openDb() {
+        dataBaseManager = new DataBaseManager(ctx);
+        dataBase = dataBaseManager.getWritableDatabase();
+    }
+
+    public void closeDb() {
+        dataBase.close();
     }
 }
