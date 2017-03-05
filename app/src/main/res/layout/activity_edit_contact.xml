@@ -109,7 +109,7 @@
         android:ems="20"
         android:layout_below="@+id/phoneText"
         android:id="@+id/addressText"
-        android:hint="Adress"
+        android:hint="Address"
         android:layout_alignStart="@+id/phoneText"
         android:layout_alignEnd="@+id/phoneText" />
 

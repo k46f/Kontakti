@@ -1,5 +1,6 @@
 package io.github.k46f.kontakti;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -21,7 +22,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE contacts (contact_id Integer PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE contacts (contact_id Integer PRIMARY KEY AUTOINCREMENT," +
+                "name TEXT NOT NULL, phone TEXT, address TEXT, email TEXT, facebook TEXT," +
+                "birthday TEXT)");
     }
 
     @Override
@@ -37,5 +40,18 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
     public void closeDb() {
         dataBase.close();
+    }
+
+    public Long register(String kname, String kphone, String kaddress, String kemail,
+                           String kfacebook, String kbirthday) throws Exception{
+        ContentValues kValues = new ContentValues();
+        kValues.put("name", kname);
+        kValues.put("phone", kphone);
+        kValues.put("address", kaddress);
+        kValues.put("email", kemail);
+        kValues.put("facebook", kfacebook);
+        kValues.put("birthday", kbirthday);
+
+        return dataBase.insert("contacts", null, kValues);
     }
 }
