@@ -2,6 +2,7 @@ package io.github.k46f.kontakti;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -53,5 +54,17 @@ public class DataBaseManager extends SQLiteOpenHelper {
         kValues.put("birthday", kbirthday);
 
         return dataBase.insert("contacts", null, kValues);
+    }
+
+
+
+    public String read() throws Exception {
+        String data = "";
+        String [] columns = new String [] {"name"};
+        Cursor c = dataBase.query("contacts", columns, null, null, null, null, null);
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            data += c.getString(c.getColumnIndex("name")) + "/n";
+        }
+            return data;
     }
 }

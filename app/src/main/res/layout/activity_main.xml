@@ -34,4 +34,11 @@
         android:onClick="addNew"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/testTextView"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
