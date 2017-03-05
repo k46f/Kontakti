@@ -25,6 +25,9 @@ public class ViewContact extends AppCompatActivity {
         birthdayView = (TextView) findViewById(R.id.birthdayView);
         fullName = (TextView) findViewById(R.id.fullname);
         photoView = (ImageView) findViewById(R.id.photoView);
+
+        Intent intent = getIntent();
+        String contactId = intent.getStringExtra(MainActivity.CONTACT_ID);
     }
 
     public void editContact(View v) {

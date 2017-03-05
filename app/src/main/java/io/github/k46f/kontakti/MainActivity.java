@@ -11,6 +11,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private TextView testTextView;
+    public final static String CONTACT_ID = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public void viewContact(View v) {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, ViewContact.class);
+        intent.putExtra(CONTACT_ID, "1");
         startActivity(intent);
     }
 }

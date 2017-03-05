@@ -60,10 +60,13 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
     public String read() throws Exception {
         String data = "";
-        String [] columns = new String [] {"name"};
+        String [] columns = new String [] {"name", "phone", "address", "email", "facebook",
+                "birthday", "contact_id"};
         Cursor c = dataBase.query("contacts", columns, null, null, null, null, null);
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-            data += c.getString(c.getColumnIndex("name")) + "/n";
+            data += c.getString(c.getColumnIndex("name")) + c.getString(c.getColumnIndex("phone"))
+                    + c.getString(c.getColumnIndex("address")) + c.getString(c.getColumnIndex("email"))
+                    + c.getString(c.getColumnIndex("facebook")) + c.getString(c.getColumnIndex("birthday"));
         }
             return data;
     }
