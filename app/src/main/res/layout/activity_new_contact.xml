@@ -155,17 +155,15 @@
         android:layout_above="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:id="@+id/selectPhotoButton" />
+        android:id="@+id/selectPhotoButton"/>
 
-    <android.support.design.widget.FloatingActionButton
+    <Button
+        android:text="Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/edit"
-        android:id="@+id/floatingActionButton2"
-        android:src="@android:drawable/ic_menu_save"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:id="@+id/saveButton" />
+
 
 </RelativeLayout>
