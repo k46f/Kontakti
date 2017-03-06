@@ -12,21 +12,38 @@ class DataBaseManager extends SQLiteOpenHelper {
     private DataBaseManager dataBaseManager;
     private SQLiteDatabase dataBase;
 
+    private final static String NAME_FOR_CONTACT_NAME = "name";
+    private final static String NAME_FOR_CONTACT_PHONE = "phone";
+    private final static String NAME_FOR_CONTACT_ADDRESS = "address";
+    private final static String NAME_FOR_CONTACT_EMAIL = "email";
+    private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
+    private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
+    private final static String NAME_FOR_CONTACT_ID = "contact_id";
+    private final static String TABLE_NAME = "contacts";
+    private final static String CREATE_TABLE = "CREATE TABLE contacts" +
+            "(contact_id Integer PRIMARY KEY AUTOINCREMENT," +
+            "name TEXT NOT NULL," +
+            "phone TEXT," +
+            "address TEXT," +
+            "email TEXT," +
+            "facebook TEXT," +
+            "birthday TEXT)";
+    private final static String DROP_TABLE = "DROP TABLE IF EXIST db_kontakti";
+    private final static String DATABASE_NAME = "db_kontakti";
+
     DataBaseManager(Context context) {
-        super(context, "db_kontakti", null, 1);
+        super(context, DATABASE_NAME, null, 1);
         ctx = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE contacts (contact_id Integer PRIMARY KEY AUTOINCREMENT," +
-                "name TEXT NOT NULL, phone TEXT, address TEXT, email TEXT, facebook TEXT," +
-                "birthday TEXT)");
+        db.execSQL(CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXIST db_kontakti");
+        db.execSQL(DROP_TABLE);
         onCreate(db);
     }
 
@@ -42,39 +59,38 @@ class DataBaseManager extends SQLiteOpenHelper {
     Long register(String kname, String kphone, String kaddress, String kemail,
                            String kfacebook, String kbirthday) throws Exception{
         ContentValues kValues = new ContentValues();
-        kValues.put("name", kname);
-        kValues.put("phone", kphone);
-        kValues.put("address", kaddress);
-        kValues.put("email", kemail);
-        kValues.put("facebook", kfacebook);
-        kValues.put("birthday", kbirthday);
+        kValues.put(NAME_FOR_CONTACT_NAME, kname);
+        kValues.put(NAME_FOR_CONTACT_PHONE, kphone);
+        kValues.put(NAME_FOR_CONTACT_ADDRESS, kaddress);
+        kValues.put(NAME_FOR_CONTACT_EMAIL, kemail);
+        kValues.put(NAME_FOR_CONTACT_FACEBOOK, kfacebook);
+        kValues.put(NAME_FOR_CONTACT_BIRTHDAY, kbirthday);
 
-        return dataBase.insert("contacts", null, kValues);
+        return dataBase.insert(TABLE_NAME, null, kValues);
     }
-
 
 
     String read() throws Exception {
         String data = "";
         String[] columns = new String[] {
-                "name",
-                "phone",
-                "address",
-                "email",
-                "facebook",
-                "birthday",
-                "contact_id"
+                NAME_FOR_CONTACT_NAME,
+                NAME_FOR_CONTACT_PHONE,
+                NAME_FOR_CONTACT_ADDRESS,
+                NAME_FOR_CONTACT_EMAIL,
+                NAME_FOR_CONTACT_FACEBOOK,
+                NAME_FOR_CONTACT_BIRTHDAY,
+                NAME_FOR_CONTACT_ID
         };
 
-        Cursor cursor = dataBase.query("contacts", columns, null, null, null, null, null);
+        Cursor cursor = dataBase.query(TABLE_NAME, columns, null, null, null, null, null);
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            data += cursor.getString(cursor.getColumnIndex("name")) +
-                    cursor.getString(cursor.getColumnIndex("phone")) +
-                    cursor.getString(cursor.getColumnIndex("address")) +
-                    cursor.getString(cursor.getColumnIndex("email")) +
-                    cursor.getString(cursor.getColumnIndex("facebook")) +
-                    cursor.getString(cursor.getColumnIndex("birthday"));
+            data += cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_NAME)) +
+                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_PHONE)) +
+                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_ADDRESS)) +
+                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_EMAIL)) +
+                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_FACEBOOK)) +
+                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_BIRTHDAY));
         }
         cursor.close();
         return data;
