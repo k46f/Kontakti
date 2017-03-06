@@ -6,10 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class DataBaseManager extends SQLiteOpenHelper {
+class DatabaseManager extends SQLiteOpenHelper {
 
     private Context ctx;
-    private DataBaseManager dataBaseManager;
+    private DatabaseManager databaseManager;
     private SQLiteDatabase dataBase;
 
     private final static String NAME_FOR_CONTACT_NAME = "name";
@@ -31,7 +31,7 @@ class DataBaseManager extends SQLiteOpenHelper {
     private final static String DROP_TABLE = "DROP TABLE IF EXIST db_kontakti";
     private final static String DATABASE_NAME = "db_kontakti";
 
-    DataBaseManager(Context context) {
+    DatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, 1);
         ctx = context;
     }
@@ -48,8 +48,8 @@ class DataBaseManager extends SQLiteOpenHelper {
     }
 
     void openDb() {
-        dataBaseManager = new DataBaseManager(ctx);
-        dataBase = dataBaseManager.getWritableDatabase();
+        databaseManager = new DatabaseManager(ctx);
+        dataBase = databaseManager.getWritableDatabase();
     }
 
     void closeDb() {
