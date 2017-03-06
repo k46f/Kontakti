@@ -44,7 +44,7 @@ public class NewContact extends AppCompatActivity {
                 String textBirthday = birthdayText.getText().toString();
 
                 try {
-                    DataBaseManager dbm = new DataBaseManager(context);
+                    DatabaseManager dbm = new DatabaseManager(context);
                     dbm.openDb();
                     long result = dbm.register(textName, textPhone, textAddress, textEmail, textFacebook,
                             textBirthday);

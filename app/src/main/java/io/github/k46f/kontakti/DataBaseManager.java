@@ -6,19 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by k46f on 3/03/2017.
- */
 
-public class DataBaseManager extends SQLiteOpenHelper {
+class DatabaseManager extends SQLiteOpenHelper {
 
-    private Context ctx;
-    private DataBaseManager dataBaseManager;
+    private DatabaseManager databaseManager;
     private SQLiteDatabase dataBase;
 
-    public DataBaseManager(Context context) {
+    DatabaseManager(Context context) {
         super(context, "db_kontakti", null, 1);
-        ctx = context;
     }
 
     @Override
@@ -34,16 +29,15 @@ public class DataBaseManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void openDb() {
-        dataBaseManager = new DataBaseManager(ctx);
-        dataBase = dataBaseManager.getWritableDatabase();
+    void openDb() {
+        dataBase = databaseManager.getWritableDatabase();
     }
 
-    public void closeDb() {
+    void closeDb() {
         dataBase.close();
     }
 
-    public Long register(String kname, String kphone, String kaddress, String kemail,
+    Long register(String kname, String kphone, String kaddress, String kemail,
                            String kfacebook, String kbirthday) throws Exception{
         ContentValues kValues = new ContentValues();
         kValues.put("name", kname);
@@ -56,18 +50,32 @@ public class DataBaseManager extends SQLiteOpenHelper {
         return dataBase.insert("contacts", null, kValues);
     }
 
+    String readAllContacts() throws Exception {
 
-
-    public String read() throws Exception {
         String data = "";
-        String [] columns = new String [] {"name", "phone", "address", "email", "facebook",
-                "birthday", "contact_id"};
-        Cursor c = dataBase.query("contacts", columns, null, null, null, null, null);
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-            data += c.getString(c.getColumnIndex("name")) + c.getString(c.getColumnIndex("phone"))
-                    + c.getString(c.getColumnIndex("address")) + c.getString(c.getColumnIndex("email"))
-                    + c.getString(c.getColumnIndex("facebook")) + c.getString(c.getColumnIndex("birthday"));
+        
+        String [] columns = new String [] {"name",
+                "phone",
+                "address",
+                "email",
+                "facebook",
+                "birthday",
+                "contact_id"
+        };
+
+        Cursor cursor = dataBase.query("contacts", columns, null, null, null, null, null);
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            data += cursor.getString(cursor.getColumnIndex("name")) +
+                    cursor.getString(cursor.getColumnIndex("phone")) +
+                    cursor.getString(cursor.getColumnIndex("address")) +
+                    cursor.getString(cursor.getColumnIndex("email")) +
+                    cursor.getString(cursor.getColumnIndex("facebook")) +
+                    cursor.getString(cursor.getColumnIndex("birthday"));
         }
-            return data;
+
+        cursor.close();
+        return data;
+
     }
 }
