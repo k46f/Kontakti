@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 class DatabaseManager extends SQLiteOpenHelper {
 
     private Context ctx;
@@ -70,8 +72,8 @@ class DatabaseManager extends SQLiteOpenHelper {
     }
 
 
-    String read() throws Exception {
-        String data = "";
+    ArrayList<Contact> readAllContacts() throws Exception {
+
         String[] columns = new String[] {
                 NAME_FOR_CONTACT_NAME,
                 NAME_FOR_CONTACT_PHONE,
@@ -84,15 +86,15 @@ class DatabaseManager extends SQLiteOpenHelper {
 
         Cursor cursor = dataBase.query(TABLE_NAME, columns, null, null, null, null, null);
 
+        ArrayList<Contact> contacts = new ArrayList<>();
+
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            data += cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_NAME)) +
-                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_PHONE)) +
-                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_ADDRESS)) +
-                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_EMAIL)) +
-                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_FACEBOOK)) +
-                    cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_BIRTHDAY));
+
+            Contact contact = new Contact(cursor);
+            contacts.add(contact);
+
         }
         cursor.close();
-        return data;
+        return contacts;
     }
 }

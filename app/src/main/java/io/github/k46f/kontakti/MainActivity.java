@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             DatabaseManager dbm = new DatabaseManager(context);
             dbm.openDb();
-            String result = dbm.read();
+            String result = dbm.readAllContacts().toString();
             dbm.closeDb();
             testTextView.setText(result);
 
