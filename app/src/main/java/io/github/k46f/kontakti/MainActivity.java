@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
 
         try {
-            DatabaseManager dbm = new DatabaseManager(context);
+            DataBaseManager dbm = new DataBaseManager(context);
             dbm.openDb();
-            String result = dbm.readAllContacts();
+            String result = dbm.read();
             dbm.closeDb();
             testTextView.setText(result);
 
