@@ -4,13 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class EditContact extends AppCompatActivity {
 
-    private Button changePhotoButton;
+    private Button changePhotoButton, saveButton, deleteButton;
     private ImageView photoView;
     private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText;
 
@@ -26,9 +28,11 @@ public class EditContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
 
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         changePhotoButton = (Button) findViewById(R.id.changePhotoButton);
+        saveButton = (Button) findViewById(R.id.saveButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
         photoView = (ImageView) findViewById(R.id.photoView);
         nameText = (EditText) findViewById(R.id.nameText);
         phoneText = (EditText) findViewById(R.id.phoneText);
@@ -41,7 +45,7 @@ public class EditContact extends AppCompatActivity {
         dbm.openDb();
 
         Intent intent = getIntent();
-        String contactId = intent.getStringExtra(ViewContact.CONTACT_ID);
+        final String contactId = intent.getStringExtra(ViewContact.CONTACT_ID);
 
         nameText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_NAME));
         phoneText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_PHONE));
@@ -49,5 +53,35 @@ public class EditContact extends AppCompatActivity {
         emailText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_EMAIL));
         facebookText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
         birthdayText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
+
+        dbm.closeDb();
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String textName = nameText.getText().toString();
+                String textPhone = phoneText.getText().toString();
+                String textAddress = addressText.getText().toString();
+                String textEmail = emailText.getText().toString();
+                String textFacebook = facebookText.getText().toString();
+                String textBirthday = birthdayText.getText().toString();
+
+                try {
+                    DatabaseManager dbm = new DatabaseManager(context);
+                    dbm.openDb();
+                    int result = dbm.updateContact(textName, textPhone, textAddress, textEmail, textFacebook, textBirthday, contactId);
+                    dbm.closeDb();
+                    if (result > 0) {
+                        Toast kToast = Toast.makeText(context, "Sucess!!", Toast.LENGTH_LONG);
+                        kToast.show();
+                    }
+                } catch (Exception exception) {
+                    Toast kToast = Toast.makeText(context, exception.toString(), Toast.LENGTH_LONG);
+                    kToast.show();
+                }
+            }
+        });
+
      }
 }

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public void viewContact(View v) {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, ViewContact.class);
-        intent.putExtra(CONTACT_ID, "1");
+        intent.putExtra(CONTACT_ID, "3");
         startActivity(intent);
     }
 }

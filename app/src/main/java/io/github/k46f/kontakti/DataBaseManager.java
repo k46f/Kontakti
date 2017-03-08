@@ -111,4 +111,17 @@ class DatabaseManager extends SQLiteOpenHelper {
 
         return finalData;
     }
+
+    int updateContact(String kname, String kphone, String kaddress, String kemail,
+                  String kfacebook, String kbirthday, String kId) throws Exception{
+        ContentValues kValues = new ContentValues();
+        kValues.put(NAME_FOR_CONTACT_NAME, kname);
+        kValues.put(NAME_FOR_CONTACT_PHONE, kphone);
+        kValues.put(NAME_FOR_CONTACT_ADDRESS, kaddress);
+        kValues.put(NAME_FOR_CONTACT_EMAIL, kemail);
+        kValues.put(NAME_FOR_CONTACT_FACEBOOK, kfacebook);
+        kValues.put(NAME_FOR_CONTACT_BIRTHDAY, kbirthday);
+
+        return dataBase.update(TABLE_NAME, kValues, "contact_id = "+kId, null);
+    }
 }
