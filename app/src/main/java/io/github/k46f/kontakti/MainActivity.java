@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private TextView testTextView;
-    public final static String CONTACT_ID = "1";
+    public final static String CONTACT_ID = ">>> Pass Contact Id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

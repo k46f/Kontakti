@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class ViewContact extends AppCompatActivity {
 
+    public final static String CONTACT_ID = ">>> Pass Contact Id";
+
     private TextView phoneView, addressView, emailView, facebookView, birthdayView, fullName;
     private ImageView photoView;
 
@@ -52,12 +54,12 @@ public class ViewContact extends AppCompatActivity {
     }
 
     public void editContact(View v) {
-        Intent mainIntent = getIntent();
-        String contactId = mainIntent.getStringExtra(MainActivity.CONTACT_ID);
+        Intent firstIntent = getIntent();
+        String contactId = firstIntent.getStringExtra(MainActivity.CONTACT_ID);
 
         Context context = getApplicationContext();
         Intent intent = new Intent(context, EditContact.class);
-        intent.putExtra(contactId, true);
+        intent.putExtra(CONTACT_ID, contactId);
         startActivity(intent);
     }
 }
