@@ -13,10 +13,19 @@ public class ViewContact extends AppCompatActivity {
     private TextView phoneView, addressView, emailView, facebookView, birthdayView, fullName;
     private ImageView photoView;
 
+    private final static String NAME_FOR_CONTACT_NAME = "name";
+    private final static String NAME_FOR_CONTACT_PHONE = "phone";
+    private final static String NAME_FOR_CONTACT_ADDRESS = "address";
+    private final static String NAME_FOR_CONTACT_EMAIL = "email";
+    private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
+    private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_contact);
+
+        Context context = getApplicationContext();
 
         phoneView = (TextView) findViewById(R.id.phoneView);
         addressView = (TextView) findViewById(R.id.addressView);
@@ -26,13 +35,29 @@ public class ViewContact extends AppCompatActivity {
         fullName = (TextView) findViewById(R.id.fullname);
         photoView = (ImageView) findViewById(R.id.photoView);
 
+        DatabaseManager dbm = new DatabaseManager(context);
+        dbm.openDb();
+
         Intent intent = getIntent();
         String contactId = intent.getStringExtra(MainActivity.CONTACT_ID);
+
+        fullName.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_NAME));
+        addressView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_ADDRESS));
+        emailView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_EMAIL));
+        facebookView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
+        birthdayView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
+        phoneView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_PHONE));
+
+        dbm.closeDb();
     }
 
     public void editContact(View v) {
+        Intent mainIntent = getIntent();
+        String contactId = mainIntent.getStringExtra(MainActivity.CONTACT_ID);
+
         Context context = getApplicationContext();
         Intent intent = new Intent(context, EditContact.class);
+        intent.putExtra(contactId, true);
         startActivity(intent);
     }
 }

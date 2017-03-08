@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,15 @@ public class MainActivity extends AppCompatActivity {
         testTextView = (TextView) findViewById(R.id.testTextView);
 
         fillData();
+
+        ContactsFragment contactsFragment = (ContactsFragment)
+                getSupportFragmentManager().findFragmentById(R.id.activity_main);
+
+        if (contactsFragment == null) {
+            contactsFragment = ContactsFragment.newInstance();
+            getSupportFragmentManager().beginTransaction().add(R.id.activity_main, contactsFragment)
+            .commit();
+        }
     }
 
     private void fillData() {

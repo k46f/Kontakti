@@ -23,7 +23,7 @@ class DatabaseManager extends SQLiteOpenHelper {
     private final static String NAME_FOR_CONTACT_ID = "contact_id";
     private final static String TABLE_NAME = "contacts";
     private final static String CREATE_TABLE = "CREATE TABLE contacts" +
-            "(contact_id Integer PRIMARY KEY AUTOINCREMENT," +
+            "(contact_id TEXT PRIMARY KEY AUTOINCREMENT," +
             "name TEXT NOT NULL," +
             "phone TEXT," +
             "address TEXT," +
@@ -96,5 +96,19 @@ class DatabaseManager extends SQLiteOpenHelper {
         }
         cursor.close();
         return contacts;
+    }
+
+    String getSingleField (String idContact, String field) {
+
+        Cursor cursor = dataBase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE contact_id="+idContact+"", null);
+
+        cursor.moveToFirst();
+
+        int data = cursor.getColumnIndex(field);
+        String finalData = cursor.getString(data);
+
+        cursor.close();
+
+        return finalData;
     }
 }
