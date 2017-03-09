@@ -29,7 +29,8 @@ class DatabaseManager extends SQLiteOpenHelper {
             "address TEXT," +
             "email TEXT," +
             "facebook TEXT," +
-            "birthday TEXT)";
+            "birthday TEXT," +
+            "_id Integer AUTOINCREMENT)";
     private final static String DROP_TABLE = "DROP TABLE IF EXIST db_kontakti";
     private final static String DATABASE_NAME = "db_kontakti";
 
@@ -101,14 +102,10 @@ class DatabaseManager extends SQLiteOpenHelper {
     String getSingleField (String idContact, String field) {
 
         Cursor cursor = dataBase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE contact_id="+idContact+"", null);
-
         cursor.moveToFirst();
-
         int data = cursor.getColumnIndex(field);
         String finalData = cursor.getString(data);
-
         cursor.close();
-
         return finalData;
     }
 
