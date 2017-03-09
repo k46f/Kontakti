@@ -23,7 +23,7 @@ class DatabaseManager extends SQLiteOpenHelper {
     private final static String NAME_FOR_CONTACT_ID = "contact_id";
     private final static String TABLE_NAME = "contacts";
     private final static String CREATE_TABLE = "CREATE TABLE contacts" +
-            "(contact_id TEXT PRIMARY KEY AUTOINCREMENT," +
+            "(contact_id Integer PRIMARY KEY AUTOINCREMENT," +
             "name TEXT NOT NULL," +
             "phone TEXT," +
             "address TEXT," +
@@ -123,5 +123,9 @@ class DatabaseManager extends SQLiteOpenHelper {
         kValues.put(NAME_FOR_CONTACT_BIRTHDAY, kbirthday);
 
         return dataBase.update(TABLE_NAME, kValues, "contact_id = "+kId, null);
+    }
+
+    public void deleteContact(String idContact) {
+        dataBase.execSQL("DELETE * FROM " + TABLE_NAME + " WHERE contact_id="+idContact+"", null);
     }
 }
