@@ -11,43 +11,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView testTextView;
+
     public final static String CONTACT_ID = ">>> Pass Contact Id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        testTextView = (TextView) findViewById(R.id.testTextView);
-
-        fillData();
-
-        ContactsFragment contactsFragment = (ContactsFragment)
-                getSupportFragmentManager().findFragmentById(R.id.activity_main);
-
-        if (contactsFragment == null) {
-            contactsFragment = ContactsFragment.newInstance();
-            getSupportFragmentManager().beginTransaction().add(R.id.activity_main, contactsFragment)
-            .commit();
-        }
-    }
-
-    private void fillData() {
-        Context context = getApplicationContext();
-
-        try {
-            DatabaseManager dbm = new DatabaseManager(context);
-            dbm.openDb();
-            String result = dbm.readAllContacts().toString();
-            dbm.closeDb();
-            testTextView.setText(result);
-
-        } catch (Exception e) {
-            Toast kToast = Toast.makeText(context, e.toString(), Toast.LENGTH_LONG);
-            kToast.show();
-        }
-
     }
 
     public void addNew(View v) {
