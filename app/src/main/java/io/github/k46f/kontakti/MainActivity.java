@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         CursorAdapterManager contactsAdapter = new CursorAdapterManager(this, contactsFillCursor);
         // Attach cursor adapter to the ListView
         kontakti_listView.setAdapter(contactsAdapter);
+        contactsFillCursor.close();
 
     }
 
