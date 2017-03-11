@@ -1,6 +1,8 @@
 package io.github.k46f.kontakti;
 
 import android.content.Context;
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,9 @@ public class NewContact extends AppCompatActivity {
     private Button selectPhotoButton, saveButton;
     private ImageView photoView;
     private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText;
+
+    // PICK_PHOTO_CODE is a constant integer
+    public final static int PICK_PHOTO_CODE = 1046;
 
 
     @Override
@@ -59,5 +64,16 @@ public class NewContact extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Trigger gallery selection for a photo
+    public void onPickPhoto (View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+        // So as long as the result is not null, it's safe to use the intent.
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, PICK_PHOTO_CODE);
+        }
     }
 }

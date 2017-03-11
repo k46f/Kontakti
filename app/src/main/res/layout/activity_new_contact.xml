@@ -155,7 +155,8 @@
         android:layout_above="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:id="@+id/selectPhotoButton"/>
+        android:id="@+id/selectPhotoButton"
+        android:onClick="onPickPhoto"/>
 
     <Button
         android:text="Save"
