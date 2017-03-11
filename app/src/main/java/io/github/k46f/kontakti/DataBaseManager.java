@@ -29,8 +29,7 @@ class DatabaseManager extends SQLiteOpenHelper {
             "address TEXT," +
             "email TEXT," +
             "facebook TEXT," +
-            "birthday TEXT," +
-            "_id Integer AUTOINCREMENT)";
+            "birthday TEXT)";
     private final static String DROP_TABLE = "DROP TABLE IF EXIST db_kontakti";
     private final static String DATABASE_NAME = "db_kontakti";
 
