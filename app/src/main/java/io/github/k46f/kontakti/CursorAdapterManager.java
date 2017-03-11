@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-public class CursorAdapterManager extends CursorAdapter{
+class CursorAdapterManager extends CursorAdapter{
 
     private final static String NAME_FOR_CONTACT_NAME = "name";
 
-    public CursorAdapterManager(Context context, Cursor cursor) {
+    CursorAdapterManager(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
 
