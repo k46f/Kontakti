@@ -90,8 +90,8 @@ public class NewContact extends AppCompatActivity {
             try {
                 Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
                 photoView.setImageBitmap(selectedImage);
-            } catch (IOException e) {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            } catch (IOException exception) {
+                Toast.makeText(this, "Error ->" + exception, Toast.LENGTH_SHORT).show();
             }
             // Load the selected image into a preview
         }
