@@ -59,6 +59,10 @@ public class EditContact extends AppCompatActivity {
         facebookText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
         birthdayText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
 
+        byte[] photo = dbm.getContactPhoto(contactId);
+        Bitmap contactPhoto = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        photoView.setImageBitmap(contactPhoto);
+
         dbm.closeDb();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
