@@ -1,10 +1,12 @@
 package io.github.k46f.kontakti;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,9 +25,6 @@ public class NewContact extends AppCompatActivity {
     public final static int PICK_PHOTO_CODE = 1046;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    public final String APP_TAG = "Kontakti";
-    public String photoFileName = "photo.jpg";
 
 
     @Override
@@ -73,20 +72,37 @@ public class NewContact extends AppCompatActivity {
         });
     }
 
-    public void onPickPhoto (View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    public void onSelectPhoto(View view){
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, PICK_PHOTO_CODE);
-        }
-    }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    public void onLaunchCamera (View view) {
-        Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+        builder.setTitle("Select photo from:");
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        }
+        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                }
+
+            }
+        });
+        builder.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, PICK_PHOTO_CODE);
+                }
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
