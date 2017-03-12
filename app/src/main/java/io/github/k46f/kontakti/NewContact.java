@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.IOException;
 
 public class NewContact extends AppCompatActivity {
@@ -21,8 +20,12 @@ public class NewContact extends AppCompatActivity {
     private ImageView photoView;
     private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText;
 
-    // PICK_PHOTO_CODE is a constant integer
     public final static int PICK_PHOTO_CODE = 1046;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    public final String APP_TAG = "Kontakti";
+    public String photoFileName = "photo.jpg";
 
 
     @Override
@@ -70,30 +73,41 @@ public class NewContact extends AppCompatActivity {
         });
     }
 
-    // Trigger gallery selection for a photo
     public void onPickPhoto (View view) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, PICK_PHOTO_CODE);
         }
     }
 
+    public void onLaunchCamera (View view) {
+        Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if (data != null) {
-            photoView = (ImageView) findViewById(R.id.photoView);
-            Uri photoUri = data.getData();
-            // Do something with the photo based on Uri
-            try {
-                Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
-                photoView.setImageBitmap(selectedImage);
-            } catch (IOException exception) {
-                Toast.makeText(this, "Error ->" + exception, Toast.LENGTH_SHORT).show();
+
+        photoView = (ImageView) findViewById(R.id.photoView);
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap takedImage = (Bitmap) extras.get("data");
+            photoView.setImageBitmap(takedImage);
+        } else {
+            if (data != null) {
+                Uri photoUri = data.getData();
+                try {
+                    Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+                    photoView.setImageBitmap(selectedImage);
+                } catch (IOException exception) {
+                    Toast.makeText(this, "Error ->" + exception, Toast.LENGTH_SHORT).show();
+                }
             }
-            // Load the selected image into a preview
         }
     }
 }

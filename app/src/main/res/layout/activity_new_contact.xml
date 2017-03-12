@@ -156,7 +156,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:id="@+id/selectPhotoButton"
-        android:onClick="onPickPhoto"/>
+        android:onClick="onLaunchCamera"/>
 
     <Button
         android:text="Save"
