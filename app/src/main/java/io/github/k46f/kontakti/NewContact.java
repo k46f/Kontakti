@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class NewContact extends AppCompatActivity {
@@ -45,6 +50,15 @@ public class NewContact extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Convert ImageView Image from resources to a Bitmap
+                BitmapDrawable drawablePhoto = (BitmapDrawable) photoView.getDrawable();
+                Bitmap contactPhoto = drawablePhoto.getBitmap();
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte photoInByte[] = stream.toByteArray();
+
                 Context context = getApplicationContext();
 
                 String textName = nameText.getText().toString();
@@ -58,7 +72,7 @@ public class NewContact extends AppCompatActivity {
                     DatabaseManager dbm = new DatabaseManager(context);
                     dbm.openDb();
                     long result = dbm.register(textName, textPhone, textAddress, textEmail, textFacebook,
-                            textBirthday);
+                            textBirthday, photoInByte);
                     dbm.closeDb();
                     if (result > 0) {
                         Toast kToast = Toast.makeText(context, "Success!!!", Toast.LENGTH_LONG);
@@ -116,8 +130,8 @@ public class NewContact extends AppCompatActivity {
             photoView.setImageBitmap(takedImage);
         } else {
             if (data != null) {
-                Uri photoUri = data.getData();
                 try {
+                    Uri photoUri = data.getData();
                     Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
                     photoView.setImageBitmap(selectedImage);
                 } catch (IOException exception) {

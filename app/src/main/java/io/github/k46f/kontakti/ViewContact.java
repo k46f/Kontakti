@@ -2,6 +2,8 @@ package io.github.k46f.kontakti;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +51,10 @@ public class ViewContact extends AppCompatActivity {
         facebookView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
         birthdayView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
         phoneView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_PHONE));
+
+        byte[] photo = dbm.getContactPhoto(contactId);
+        Bitmap contactPhoto = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        photoView.setImageBitmap(contactPhoto);
 
         dbm.closeDb();
     }

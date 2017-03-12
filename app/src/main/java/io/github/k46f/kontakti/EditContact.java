@@ -2,6 +2,9 @@ package io.github.k46f.kontakti;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 public class EditContact extends AppCompatActivity {
 
@@ -67,10 +72,19 @@ public class EditContact extends AppCompatActivity {
                 String textFacebook = facebookText.getText().toString();
                 String textBirthday = birthdayText.getText().toString();
 
+                // Convert ImageView Image from resources to a Bitmap
+                BitmapDrawable drawablePhoto = (BitmapDrawable) photoView.getDrawable();
+                Bitmap contactPhoto = drawablePhoto.getBitmap();
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte photoInByte[] = stream.toByteArray();
+
                 try {
                     DatabaseManager dbm = new DatabaseManager(context);
                     dbm.openDb();
-                    int result = dbm.updateContact(textName, textPhone, textAddress, textEmail, textFacebook, textBirthday, contactId);
+                    int result = dbm.updateContact(textName, textPhone, textAddress, textEmail,
+                            textFacebook, textBirthday, contactId, photoInByte);
                     dbm.closeDb();
                     if (result > 0) {
                         Toast kToast = Toast.makeText(context, "Sucess!!", Toast.LENGTH_LONG);
