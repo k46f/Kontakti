@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public final static String CONTACT_ID = ">>> Pass Contact Id";
+    private final static String NAME_FOR_CONTACT_ID = "contact_id";
     private final static String TABLE_NAME = "contacts";
 
     @Override
@@ -40,18 +42,29 @@ public class MainActivity extends AppCompatActivity {
         // Attach cursor adapter to the ListView
         kontakti_listView.setAdapter(contactsAdapter);
 
+        kontakti_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Context context = getApplicationContext();
+
+                DatabaseManager dbm = new DatabaseManager(context);
+                SQLiteDatabase db = dbm.getWritableDatabase();
+                Cursor onClickListView = db.rawQuery("SELECT contact_id FROM contacts", null);
+                onClickListView.moveToPosition(position);
+                int data = onClickListView.getColumnIndexOrThrow(NAME_FOR_CONTACT_ID);
+                String contact_id = onClickListView.getString(data);
+
+                Intent intent = new Intent(context, ViewContact.class);
+                intent.putExtra(CONTACT_ID, contact_id);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void addNew(View v) {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, NewContact.class);
-        startActivity(intent);
-    }
-
-    public void viewContact(View v) {
-        Context context = getApplicationContext();
-        Intent intent = new Intent(context, ViewContact.class);
-        intent.putExtra(CONTACT_ID, "2");
         startActivity(intent);
     }
 }
