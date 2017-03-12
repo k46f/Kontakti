@@ -142,7 +142,8 @@
         android:layout_above="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:id="@+id/changePhotoButton" />
+        android:id="@+id/changePhotoButton"
+        android:onClick="onChangePhoto"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -169,6 +170,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/deleteButton" />
+        android:id="@+id/deleteButton"/>
 
 </RelativeLayout>
