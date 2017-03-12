@@ -110,6 +110,20 @@ public class EditContact extends AppCompatActivity {
             }
         });
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                DatabaseManager dbm = new DatabaseManager(context);
+                dbm.openDb();
+                dbm.deleteContact(contactId);
+
+                Toast toast = Toast.makeText(context, "Success!", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+
      }
 
     public void onChangePhoto(View view){

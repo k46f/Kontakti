@@ -137,6 +137,6 @@ class DatabaseManager extends SQLiteOpenHelper {
     }
 
     public void deleteContact(String idContact) {
-        dataBase.execSQL("DELETE * FROM " + TABLE_NAME + " WHERE contact_id="+idContact+"", null);
+        dataBase.delete(TABLE_NAME, NAME_FOR_CONTACT_ID + "=" + idContact, null);
     }
 }

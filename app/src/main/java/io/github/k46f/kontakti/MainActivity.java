@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 onClickListView.moveToPosition(position);
                 int data = onClickListView.getColumnIndexOrThrow(NAME_FOR_CONTACT_ID);
                 String contact_id = onClickListView.getString(data);
+                onClickListView.close();
 
                 Intent intent = new Intent(context, ViewContact.class);
                 intent.putExtra(CONTACT_ID, contact_id);
