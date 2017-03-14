@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -74,5 +75,9 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, NewContact.class);
         startActivity(intent);
+    }
+
+    public void onBackPressed(){
+        moveTaskToBack(true);
     }
 }
