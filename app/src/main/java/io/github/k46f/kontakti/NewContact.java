@@ -26,6 +26,7 @@ public class NewContact extends AppCompatActivity {
     private Button selectPhotoButton, saveButton;
     private ImageView photoView;
     private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText;
+    private final static String NEW_SUCCESS_MESSAGE = "Contact Saved!";
 
     public static final String RETURN_SAVE = "1";
 
@@ -86,11 +87,14 @@ public class NewContact extends AppCompatActivity {
                         if (result > 0) {
 
                             Intent successIntent = new Intent(context, MainActivity.class);
-                            successIntent.putExtra(RETURN_SAVE, RETURN_SAVE);
                             startActivity(successIntent);
+
+                            Toast kToast = Toast.makeText(context, NEW_SUCCESS_MESSAGE, Toast.LENGTH_LONG);
+                            kToast.show();
 
                         }
                     } catch (Exception e) {
+
                         Toast kToast = Toast.makeText(context, e.toString(), Toast.LENGTH_LONG);
                         kToast.show();
                     }

@@ -132,8 +132,10 @@ public class EditContact extends AppCompatActivity {
                 dbm.deleteContact(contactId);
 
                 Intent mainActivityIntent = new Intent(context, MainActivity.class);
-                mainActivityIntent.putExtra(RETURN_DELETE, "1");
                 startActivity(mainActivityIntent);
+
+                Toast kToast = Toast.makeText(context, "Deleted!", Toast.LENGTH_LONG);
+                kToast.show();
             }
         });
 
