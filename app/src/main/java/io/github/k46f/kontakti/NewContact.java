@@ -141,6 +141,7 @@ public class NewContact extends AppCompatActivity {
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
 
         photoView = (ImageView) findViewById(R.id.photoView);
+        selectPhotoButton.setText("Change Photo");
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
