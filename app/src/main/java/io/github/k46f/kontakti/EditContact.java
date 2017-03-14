@@ -37,7 +37,6 @@ public class EditContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
     public final static String RETURN_EDIT = "Return Edit";
-    public final static String RETURN_DELETE = "return Delete";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,16 +125,7 @@ public class EditContact extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
-                DatabaseManager dbm = new DatabaseManager(context);
-                dbm.openDb();
-                dbm.deleteContact(contactId);
-
-                Intent mainActivityIntent = new Intent(context, MainActivity.class);
-                startActivity(mainActivityIntent);
-
-                Toast kToast = Toast.makeText(context, "Deleted!", Toast.LENGTH_LONG);
-                kToast.show();
+                onDelete(contactId);
             }
         });
 
@@ -194,5 +184,38 @@ public class EditContact extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void onDelete(final String contactId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Are you sure?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                Context context = getApplicationContext();
+
+                DatabaseManager dbm = new DatabaseManager(context);
+                dbm.openDb();
+                dbm.deleteContact(contactId);
+
+                Intent mainActivityIntent = new Intent(context, MainActivity.class);
+                startActivity(mainActivityIntent);
+
+                Toast kToast = Toast.makeText(context, "Deleted!", Toast.LENGTH_LONG);
+                kToast.show();
+
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
