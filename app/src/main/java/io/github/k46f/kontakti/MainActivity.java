@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String CONTACT_ID = ">>> Pass Contact Id";
     private final static String NAME_FOR_CONTACT_ID = "contact_id";
-    private final static String TABLE_NAME = "contacts";
+    private final static String NEW_SUCCESS_MESSAGE = "Contact Saved!";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Intent successNew = getIntent();
+        final String successNewReturn = successNew.getStringExtra(NewContact.RETURN_SAVE);
+
+        if (successNewReturn != null){
+            Toast kToast = Toast.makeText(this, NEW_SUCCESS_MESSAGE, Toast.LENGTH_LONG);
+            kToast.show();
+        }
     }
 
     public void addNew(View v) {

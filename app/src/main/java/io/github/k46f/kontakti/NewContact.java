@@ -27,6 +27,8 @@ public class NewContact extends AppCompatActivity {
     private ImageView photoView;
     private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText;
 
+    public static final String RETURN_SAVE = "1";
+
     public final static int PICK_PHOTO_CODE = 1046;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -75,8 +77,11 @@ public class NewContact extends AppCompatActivity {
                             textBirthday, photoInByte);
                     dbm.closeDb();
                     if (result > 0) {
-                        Toast kToast = Toast.makeText(context, "Success!!!", Toast.LENGTH_LONG);
-                        kToast.show();
+
+                        Intent successIntent = new Intent(context, MainActivity.class);
+                        successIntent.putExtra(RETURN_SAVE, RETURN_SAVE);
+                        startActivity(successIntent);
+
                     }
                 } catch (Exception e) {
                     Toast kToast = Toast.makeText(context, e.toString(), Toast.LENGTH_LONG);
