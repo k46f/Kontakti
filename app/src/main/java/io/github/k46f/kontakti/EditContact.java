@@ -94,21 +94,29 @@ public class EditContact extends AppCompatActivity {
                 contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte photoInByte[] = stream.toByteArray();
 
-                try {
-                    DatabaseManager dbm = new DatabaseManager(context);
-                    dbm.openDb();
-                    int result = dbm.updateContact(textName, textPhone, textAddress, textEmail,
-                            textFacebook, textBirthday, contactId, photoInByte);
-                    dbm.closeDb();
-                    if (result > 0) {
+                if (textName.equals("")){
 
-                        Intent successIntent = new Intent(getApplicationContext(), ViewContact.class);
-                        successIntent.putExtra(RETURN_EDIT, contactId);
-                        startActivity(successIntent);
+                    Toast noName = Toast.makeText(context, "Please enter a name", Toast.LENGTH_LONG);
+                    noName.show();
+
+                } else {
+
+                    try {
+                        DatabaseManager dbm = new DatabaseManager(context);
+                        dbm.openDb();
+                        int result = dbm.updateContact(textName, textPhone, textAddress, textEmail,
+                                textFacebook, textBirthday, contactId, photoInByte);
+                        dbm.closeDb();
+                        if (result > 0) {
+
+                            Intent successIntent = new Intent(getApplicationContext(), ViewContact.class);
+                            successIntent.putExtra(RETURN_EDIT, contactId);
+                            startActivity(successIntent);
+                        }
+                    } catch (Exception exception) {
+                        Toast kToast = Toast.makeText(context, exception.toString(), Toast.LENGTH_LONG);
+                        kToast.show();
                     }
-                } catch (Exception exception) {
-                    Toast kToast = Toast.makeText(context, exception.toString(), Toast.LENGTH_LONG);
-                    kToast.show();
                 }
             }
         });

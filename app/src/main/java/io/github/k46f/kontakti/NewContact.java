@@ -72,8 +72,8 @@ public class NewContact extends AppCompatActivity {
 
                 if (textName.equals("")) {
 
-                    Toast testToast = Toast.makeText(context, "Please enter a name", Toast.LENGTH_LONG);
-                    testToast.show();
+                    Toast noName = Toast.makeText(context, "Please enter a name", Toast.LENGTH_LONG);
+                    noName.show();
 
                 } else {
 
