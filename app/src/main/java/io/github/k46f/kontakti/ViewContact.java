@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewContact extends AppCompatActivity {
 
@@ -23,6 +24,8 @@ public class ViewContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_EMAIL = "email";
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
+    private String contactId;
+    private final static String EDIT_SUCCESS = "Contact edited success!";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,18 @@ public class ViewContact extends AppCompatActivity {
         dbm.openDb();
 
         Intent intent = getIntent();
-        String contactId = intent.getStringExtra(MainActivity.CONTACT_ID);
+
+        String contactIdMain = intent.getStringExtra(MainActivity.CONTACT_ID);
+        String contactIdEdit = intent.getStringExtra(EditContact.RETURN_EDIT);
+
+        if (contactIdMain != null){
+            contactId = contactIdMain;
+        } else {
+            contactId = contactIdEdit;
+
+            Toast ktoast = Toast.makeText(this, EDIT_SUCCESS, Toast.LENGTH_LONG);
+            ktoast.show();
+        }
 
         fullName.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_NAME));
         addressView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_ADDRESS));

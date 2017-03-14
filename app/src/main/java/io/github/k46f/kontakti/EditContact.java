@@ -36,6 +36,7 @@ public class EditContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_EMAIL = "email";
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
+    public final static String RETURN_EDIT = "Return Edit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +101,10 @@ public class EditContact extends AppCompatActivity {
                             textFacebook, textBirthday, contactId, photoInByte);
                     dbm.closeDb();
                     if (result > 0) {
-                        Toast kToast = Toast.makeText(context, "Sucess!!", Toast.LENGTH_LONG);
-                        kToast.show();
+
+                        Intent successIntent = new Intent(getApplicationContext(), ViewContact.class);
+                        successIntent.putExtra(RETURN_EDIT, contactId);
+                        startActivity(successIntent);
                     }
                 } catch (Exception exception) {
                     Toast kToast = Toast.makeText(context, exception.toString(), Toast.LENGTH_LONG);
