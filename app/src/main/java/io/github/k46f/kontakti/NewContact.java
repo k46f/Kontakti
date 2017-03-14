@@ -70,22 +70,31 @@ public class NewContact extends AppCompatActivity {
                 String textFacebook = facebookText.getText().toString();
                 String textBirthday = birthdayText.getText().toString();
 
-                try {
-                    DatabaseManager dbm = new DatabaseManager(context);
-                    dbm.openDb();
-                    long result = dbm.register(textName, textPhone, textAddress, textEmail, textFacebook,
-                            textBirthday, photoInByte);
-                    dbm.closeDb();
-                    if (result > 0) {
+                if (textName.equals("")) {
 
-                        Intent successIntent = new Intent(context, MainActivity.class);
-                        successIntent.putExtra(RETURN_SAVE, RETURN_SAVE);
-                        startActivity(successIntent);
+                    Toast testToast = Toast.makeText(context, "Please enter a name", Toast.LENGTH_LONG);
+                    testToast.show();
 
+                } else {
+
+                    try {
+                        DatabaseManager dbm = new DatabaseManager(context);
+                        dbm.openDb();
+                        long result = dbm.register(textName, textPhone, textAddress, textEmail, textFacebook,
+                                textBirthday, photoInByte);
+                        dbm.closeDb();
+                        if (result > 0) {
+
+                            Intent successIntent = new Intent(context, MainActivity.class);
+                            successIntent.putExtra(RETURN_SAVE, RETURN_SAVE);
+                            startActivity(successIntent);
+
+                        }
+                    } catch (Exception e) {
+                        Toast kToast = Toast.makeText(context, e.toString(), Toast.LENGTH_LONG);
+                        kToast.show();
                     }
-                } catch (Exception e) {
-                    Toast kToast = Toast.makeText(context, e.toString(), Toast.LENGTH_LONG);
-                    kToast.show();
+
                 }
             }
         });
