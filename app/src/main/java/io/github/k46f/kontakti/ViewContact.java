@@ -82,4 +82,9 @@ public class ViewContact extends AppCompatActivity {
         intent.putExtra(CONTACT_ID, contactId);
         startActivity(intent);
     }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }
