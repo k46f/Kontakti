@@ -64,9 +64,15 @@ public class MainActivity extends AppCompatActivity {
 
         Intent successNew = getIntent();
         final String successNewReturn = successNew.getStringExtra(NewContact.RETURN_SAVE);
+        final String successDeleteReturn = successNew.getStringExtra(EditContact.RETURN_DELETE);
 
         if (successNewReturn != null){
             Toast kToast = Toast.makeText(this, NEW_SUCCESS_MESSAGE, Toast.LENGTH_LONG);
+            kToast.show();
+        }
+
+        if (successDeleteReturn != null){
+            Toast kToast = Toast.makeText(this, "Deleted!", Toast.LENGTH_LONG);
             kToast.show();
         }
     }

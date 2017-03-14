@@ -37,6 +37,7 @@ public class EditContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
     public final static String RETURN_EDIT = "Return Edit";
+    public final static String RETURN_DELETE = "return Delete";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +131,9 @@ public class EditContact extends AppCompatActivity {
                 dbm.openDb();
                 dbm.deleteContact(contactId);
 
-                Toast toast = Toast.makeText(context, "Success!", Toast.LENGTH_LONG);
-                toast.show();
+                Intent mainActivityIntent = new Intent(context, MainActivity.class);
+                mainActivityIntent.putExtra(RETURN_DELETE, "1");
+                startActivity(mainActivityIntent);
             }
         });
 
