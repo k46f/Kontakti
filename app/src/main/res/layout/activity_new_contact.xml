@@ -87,7 +87,8 @@
         android:layout_below="@+id/photoView"
         android:layout_centerHorizontal="true"
         android:id="@+id/nameText"
-        android:hint="Name" />
+        android:hint="Name"
+        android:layout_above="@+id/phoneText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -95,11 +96,11 @@
         android:inputType="phone"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:id="@+id/phoneText"
         android:hint="Phone"
-        android:layout_above="@+id/imageAdress" />
+        android:layout_above="@+id/imageAdress"
+        android:layout_alignTop="@+id/imagePhone" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -148,18 +149,19 @@
         android:hint="Birthday" />
 
     <Button
-        android:text="Select Photo"
-        style="@style/Widget.AppCompat.Button"
+        android:id="@+id/selectPhotoButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:id="@+id/selectPhotoButton"
-        android:onClick="onSelectPhoto"/>
+        android:onClick="onSelectPhoto"
+        android:text="Select Photo" />
 
     <Button
         android:text="Save"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

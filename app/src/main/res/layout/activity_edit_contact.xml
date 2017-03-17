@@ -87,7 +87,8 @@
         android:layout_below="@+id/photoView"
         android:layout_centerHorizontal="true"
         android:id="@+id/nameText"
-        android:hint="Name" />
+        android:hint="Name"
+        android:layout_above="@+id/phoneText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -95,11 +96,11 @@
         android:inputType="phone"
         android:textSize="10sp"
         android:ems="20"
-        android:layout_below="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:id="@+id/phoneText"
         android:hint="Phone"
-        android:layout_above="@+id/imageAdress" />
+        android:layout_above="@+id/imageAdress"
+        android:layout_alignTop="@+id/imagePhone" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -135,15 +136,15 @@
         android:hint="Birthday" />
 
     <Button
-        android:text="Change Photo"
-        style="@style/Widget.AppCompat.Button"
+        android:id="@+id/changePhotoButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/nameText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:id="@+id/changePhotoButton"
-        android:onClick="onChangePhoto"/>
+        android:onClick="onChangePhoto"
+        android:text="Change Photo" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -157,19 +158,23 @@
         android:layout_alignStart="@+id/addressText" />
 
     <Button
-        android:text="Save"
-        android:layout_width="wrap_content"
+        android:id="@+id/saveButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="10sp"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/photoView"
-        android:id="@+id/saveButton" />
+        android:layout_toEndOf="@+id/photoView"
+        android:text="Save" />
 
     <Button
-        android:text="Delete"
-        android:layout_width="wrap_content"
+        android:id="@+id/deleteButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="10sp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/deleteButton"/>
+        android:layout_toStartOf="@+id/photoView"
+        android:text="Delete" />
 
 </RelativeLayout>
