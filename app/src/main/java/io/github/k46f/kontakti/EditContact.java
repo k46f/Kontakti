@@ -48,7 +48,6 @@ public class EditContact extends AppCompatActivity {
 
         final Context context = getApplicationContext();
 
-        changePhotoButton = (Button) findViewById(R.id.changePhotoButton);
         saveButton = (Button) findViewById(R.id.saveButton);
         deleteButton = (Button) findViewById(R.id.deleteButton);
         photoView = (ImageView) findViewById(R.id.photoView);

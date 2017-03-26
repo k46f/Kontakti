@@ -17,17 +17,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/changePhotoButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:onClick="onChangePhoto"
-        android:text="Change Photo"
-        android:layout_alignBottom="@+id/photoView"
-        android:layout_centerHorizontal="true" />
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/nameLayout"
         android:layout_width="match_parent"
@@ -126,7 +115,7 @@
         android:textSize="10sp"
         android:layout_alignParentBottom="true"
         android:text="Save"
-        android:layout_toEndOf="@+id/changePhotoButton" />
+        android:layout_toEndOf="@+id/floatingActionButton3" />
 
     <Button
         android:id="@+id/deleteButton"
@@ -136,6 +125,18 @@
         android:textSize="10sp"
         android:layout_alignParentBottom="true"
         android:text="Delete"
-        android:layout_toStartOf="@+id/changePhotoButton" />
+        android:layout_toStartOf="@+id/floatingActionButton3" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nameLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_camera_enhance_white_24dp"
+        android:onClick="onChangePhoto"/>
 
 </RelativeLayout>
