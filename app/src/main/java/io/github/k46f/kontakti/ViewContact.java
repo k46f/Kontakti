@@ -34,6 +34,9 @@ public class ViewContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_contact);
 
+        // Show back button in action bar, boolena method to go back is at the end of activity
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Context context = getApplicationContext();
 
         phoneView = (EditText) findViewById(R.id.phoneView);
@@ -88,5 +91,12 @@ public class ViewContact extends AppCompatActivity {
     public void onBackPressed(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    // Method to go back
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }
