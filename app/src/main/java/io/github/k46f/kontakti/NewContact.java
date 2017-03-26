@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class NewContact extends AppCompatActivity {
 
-    private Button selectPhotoButton, saveButton;
+    private Button saveButton;
     private ImageView photoView;
     private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText;
     private final static String NEW_SUCCESS_MESSAGE = "Contact Saved!";
@@ -42,7 +42,7 @@ public class NewContact extends AppCompatActivity {
         setContentView(R.layout.activity_new_contact);
 
         getSupportActionBar().setTitle(ACTIVITY_TITLE);
-        
+
         photoView = (ImageView) findViewById(R.id.photoView);
         nameText = (EditText) findViewById(R.id.nameText);
         phoneText = (EditText) findViewById(R.id.phoneText);
@@ -143,7 +143,6 @@ public class NewContact extends AppCompatActivity {
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
 
         photoView = (ImageView) findViewById(R.id.photoView);
-        selectPhotoButton.setText("Change Photo");
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();

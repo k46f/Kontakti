@@ -124,8 +124,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="22dp"
         android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/ic_camera_enhance_white_24dp"
-        android:onClick="onSelectPhoto"/>
+        android:onClick="onSelectPhoto"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_camera_enhance_white_24dp" />
 
 </RelativeLayout>
