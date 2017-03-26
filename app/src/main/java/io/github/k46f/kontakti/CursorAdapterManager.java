@@ -15,6 +15,7 @@ class CursorAdapterManager extends CursorAdapter{
 
     private final static String NAME_FOR_CONTACT_NAME = "name";
     private final static String NAME_FOR_CONTACT_PHOTO = "photo";
+    private final static String NAME_FOR_CONTACT_PHONE = "phone";
 
     CursorAdapterManager(Context context, Cursor cursor) {
         super(context, cursor, 0);
@@ -35,12 +36,15 @@ class CursorAdapterManager extends CursorAdapter{
     public void bindView(View view, Context context, Cursor cursor) {
         // Find fields to populate in inflated template
         TextView kontakti_name = (TextView) view.findViewById(R.id.kontakti_name);
+        TextView kontakti_phone = (TextView) view.findViewById(R.id.kontakti_phone);
         ImageView kontakti_avatar = (ImageView) view.findViewById(R.id.kontakti_avatar);
         // Extract properties from cursor
         String name = cursor.getString(cursor.getColumnIndexOrThrow(NAME_FOR_CONTACT_NAME));
+        String phone = cursor.getString(cursor.getColumnIndexOrThrow(NAME_FOR_CONTACT_PHONE));
         byte[] photo = cursor.getBlob(cursor.getColumnIndexOrThrow(NAME_FOR_CONTACT_PHOTO));
         // Populate fields with extracted properties
         kontakti_name.setText(name);
+        kontakti_phone.setText(phone);
 
         Bitmap contactPhoto = BitmapFactory.decodeByteArray(photo, 0, photo.length);
         kontakti_avatar.setImageBitmap(contactPhoto);

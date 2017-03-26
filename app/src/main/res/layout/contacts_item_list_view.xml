@@ -8,7 +8,6 @@
         android:id="@+id/kontakti_avatar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_centerVertical="true"
         app:srcCompat="@drawable/default_user"
         android:scaleType="centerCrop" />
 
@@ -17,8 +16,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="56dp"
-        android:layout_centerVertical="true"
-        android:text="Nombre"
+        android:text="Name"
         android:textSize="20sp"
+        android:textAppearance="?attr/textAppearanceListItem"/>
+
+    <TextView
+        android:id="@+id/kontakti_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="56dp"
+        android:text="Phone"
+        android:textSize="20sp"
+        android:layout_below="@id/kontakti_name"
         android:textAppearance="?attr/textAppearanceListItem"/>
 </RelativeLayout>
