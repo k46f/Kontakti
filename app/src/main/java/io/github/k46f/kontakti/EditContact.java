@@ -44,6 +44,9 @@ public class EditContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
 
+        // Show back button in action bar, boolena method to go back is at the end of activity
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         getSupportActionBar().setTitle(ACTIVITY_TITLE);
 
         final Context context = getApplicationContext();
@@ -219,5 +222,11 @@ public class EditContact extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    // Method to go back
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }
