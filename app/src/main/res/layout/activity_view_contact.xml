@@ -22,10 +22,13 @@
         android:id="@+id/fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/phoneLayout"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
         android:text="John Doe"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
 
     <android.support.design.widget.TextInputLayout
         android:paddingTop="10dp"
