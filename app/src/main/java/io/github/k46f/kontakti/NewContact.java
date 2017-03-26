@@ -42,8 +42,7 @@ public class NewContact extends AppCompatActivity {
         setContentView(R.layout.activity_new_contact);
 
         getSupportActionBar().setTitle(ACTIVITY_TITLE);
-
-        selectPhotoButton = (Button) findViewById(R.id.selectPhotoButton);
+        
         photoView = (ImageView) findViewById(R.id.photoView);
         nameText = (EditText) findViewById(R.id.nameText);
         phoneText = (EditText) findViewById(R.id.phoneText);
