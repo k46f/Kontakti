@@ -5,127 +5,118 @@
     android:id="@+id/activity_view_contact"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.github.k46f.kontakti.ViewContact">
 
 
     <ImageView
+        android:id="@+id/photoView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:srcCompat="@drawable/default_user"
-        android:id="@+id/photoView"
-        android:layout_marginTop="46dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:cropToPadding="false"
-        android:scaleType="centerCrop" />
-
-    <TextView
-        android:text="John Doe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/fullname"
-        android:textSize="25sp"
-        />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        app:srcCompat="@drawable/phone"
-        android:layout_below="@+id/photoView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="42dp"
-        android:id="@+id/imagePhone" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/map"
-        android:layout_below="@+id/imagePhone"
-        android:layout_alignStart="@+id/imagePhone"
-        android:layout_marginTop="13dp"
-        android:id="@+id/imageAdress" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/email"
-        android:layout_marginTop="12dp"
-        android:id="@+id/imageEmail"
-        android:layout_below="@+id/imageAdress"
-        android:layout_alignStart="@+id/imageAdress" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/facebook"
-        android:layout_below="@+id/imageEmail"
-        android:layout_alignStart="@+id/imageEmail"
-        android:layout_marginTop="11dp"
-        android:id="@+id/imageFacebook" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/birthday"
-        android:layout_below="@+id/imageFacebook"
-        android:layout_marginTop="11dp"
-        android:id="@+id/imageBirthday"
-        android:layout_alignStart="@+id/imageFacebook" />
-
-    <TextView
-        android:text="300-6983560"
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/phoneView"
-        android:layout_above="@+id/imageAdress"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/photoView"
-        android:layout_alignTop="@+id/imagePhone"
-        tools:gravity="left|center" />
+        android:layout_alignParentStart="true"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/default_user" />
 
     <TextView
-        android:text="Calle 35 N° 24 -50"
+        android:id="@+id/fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageAdress"
-        android:layout_alignStart="@+id/phoneView"
-        android:id="@+id/addressView"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="John Doe"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-    <TextView
-        android:text="Doe@JohnDoe.com"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:paddingTop="10dp"
+        android:id="@+id/phoneLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageEmail"
-        android:layout_alignStart="@+id/addressView"
-        android:id="@+id/emailView"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/photoView">
 
-    <TextView
-        android:text="JohnDoe2471"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageFacebook"
-        android:layout_alignStart="@+id/emailView"
-        android:id="@+id/facebookView"
-        android:layout_alignParentEnd="true" />
+        <EditText
+            android:longClickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:id="@+id/phoneView"/>
+    </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:text="24/12/98"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/addressLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageBirthday"
-        android:layout_alignStart="@+id/facebookView"
-        android:id="@+id/birthdayView"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/phoneLayout">
+
+        <EditText
+            android:longClickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textPersonName"
+            android:id="@+id/addressView"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/emailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/addressLayout">
+
+        <EditText
+            android:longClickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:id="@+id/emailView"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/facebookLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/emailLayout">
+
+        <EditText
+            android:longClickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Facebook"
+            android:inputType="textPersonName"
+            android:id="@+id/facebookView"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/birthdayLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/facebookLayout">
+
+        <EditText
+            android:longClickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Birthday"
+            android:inputType="date"
+            android:id="@+id/birthdayView"/>
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

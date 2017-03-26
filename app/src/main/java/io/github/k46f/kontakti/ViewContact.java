@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +16,8 @@ public class ViewContact extends AppCompatActivity {
 
     public final static String CONTACT_ID = ">>> Pass Contact Id";
 
-    private TextView phoneView, addressView, emailView, facebookView, birthdayView, fullName;
+    private TextView fullName;
+    private EditText phoneView, addressView, emailView, facebookView, birthdayView;
     private ImageView photoView;
 
     private final static String NAME_FOR_CONTACT_NAME = "name";
@@ -34,11 +36,11 @@ public class ViewContact extends AppCompatActivity {
 
         Context context = getApplicationContext();
 
-        phoneView = (TextView) findViewById(R.id.phoneView);
-        addressView = (TextView) findViewById(R.id.addressView);
-        emailView = (TextView) findViewById(R.id.emailView);
-        facebookView = (TextView) findViewById(R.id.facebookView);
-        birthdayView = (TextView) findViewById(R.id.birthdayView);
+        phoneView = (EditText) findViewById(R.id.phoneView);
+        addressView = (EditText) findViewById(R.id.addressView);
+        emailView = (EditText) findViewById(R.id.emailView);
+        facebookView = (EditText) findViewById(R.id.facebookView);
+        birthdayView = (EditText) findViewById(R.id.birthdayView);
         fullName = (TextView) findViewById(R.id.fullname);
         photoView = (ImageView) findViewById(R.id.photoView);
 
