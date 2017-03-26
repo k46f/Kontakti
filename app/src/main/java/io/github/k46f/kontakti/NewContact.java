@@ -34,11 +34,14 @@ public class NewContact extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    private final static String ACTIVITY_TITLE = "Add New Contact";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_contact);
+
+        getSupportActionBar().setTitle(ACTIVITY_TITLE);
 
         selectPhotoButton = (Button) findViewById(R.id.selectPhotoButton);
         photoView = (ImageView) findViewById(R.id.photoView);
