@@ -5,10 +5,6 @@
     android:id="@+id/activity_new_contact"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.github.k46f.kontakti.NewContact">
 
     <ImageView
@@ -16,146 +12,111 @@
         android:layout_height="200dp"
         app:srcCompat="@drawable/default_user"
         android:id="@+id/photoView"
-        android:layout_marginTop="46dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:cropToPadding="false"
-        android:scaleType="centerCrop" />
-
-    <TextView
-        android:text="Edit contact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/editContact"
-        android:textSize="25sp"
-        />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="30dp"
-        app:srcCompat="@drawable/phone"
-        android:layout_below="@+id/photoView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="42dp"
-        android:id="@+id/imagePhone" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/map"
-        android:layout_below="@+id/imagePhone"
-        android:layout_alignStart="@+id/imagePhone"
-        android:layout_marginTop="13dp"
-        android:id="@+id/imageAdress" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/email"
-        android:layout_marginTop="12dp"
-        android:id="@+id/imageEmail"
-        android:layout_below="@+id/imageAdress"
-        android:layout_alignStart="@+id/imageAdress" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/facebook"
-        android:layout_below="@+id/imageEmail"
-        android:layout_alignStart="@+id/imageEmail"
-        android:layout_marginTop="11dp"
-        android:id="@+id/imageFacebook" />
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/birthday"
-        android:layout_below="@+id/imageFacebook"
-        android:layout_marginTop="11dp"
-        android:id="@+id/imageBirthday"
-        android:layout_alignStart="@+id/imageFacebook" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:textSize="10sp"
-        android:ems="20"
-        android:layout_below="@+id/photoView"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/nameText"
-        android:hint="Name"
-        android:layout_above="@+id/phoneText" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:textSize="10sp"
-        android:ems="20"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/phoneText"
-        android:hint="Phone"
-        android:layout_above="@+id/imageAdress"
-        android:layout_alignTop="@+id/imagePhone" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPostalAddress"
-        android:textSize="10sp"
-        android:ems="20"
-        android:layout_below="@+id/phoneText"
-        android:id="@+id/addressText"
-        android:hint="Address"
-        android:layout_alignStart="@+id/phoneText"
-        android:layout_alignEnd="@+id/phoneText" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:ems="20"
-        android:layout_below="@+id/emailText"
-        android:layout_alignStart="@+id/emailText"
-        android:id="@+id/facebookText"
-        android:hint="Facebook" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:textSize="10sp"
-        android:ems="20"
-        android:layout_below="@+id/facebookText"
-        android:layout_alignStart="@+id/facebookText"
-        android:id="@+id/birthdayText"
-        android:hint="Birthday" />
+        android:scaleType="centerCrop"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/changePhotoButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/nameText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="9dp"
         android:onClick="onChangePhoto"
-        android:text="Change Photo" />
+        android:text="Change Photo"
+        android:layout_alignBottom="@+id/photoView"
+        android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/nameLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:textSize="10sp"
-        android:ems="20"
-        android:id="@+id/emailText"
-        android:hint="Email"
-        android:layout_below="@+id/addressText"
-        android:layout_alignStart="@+id/addressText" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/photoView">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:id="@+id/nameText"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/phoneLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/nameLayout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:id="@+id/phoneText"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/addressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/phoneLayout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textPersonName"
+            android:id="@+id/addressText"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/emailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/addressLayout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:id="@+id/emailText"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/facebookLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/emailLayout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Facebook"
+            android:inputType="textPersonName"
+            android:id="@+id/facebookText"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/birthdayLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/facebookLayout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Birthday"
+            android:inputType="date"
+            android:id="@+id/birthdayText"/>
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/saveButton"
@@ -164,8 +125,8 @@
         android:layout_height="wrap_content"
         android:textSize="10sp"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/photoView"
-        android:text="Save" />
+        android:text="Save"
+        android:layout_toEndOf="@+id/changePhotoButton" />
 
     <Button
         android:id="@+id/deleteButton"
@@ -174,7 +135,7 @@
         android:layout_height="wrap_content"
         android:textSize="10sp"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/photoView"
-        android:text="Delete" />
+        android:text="Delete"
+        android:layout_toStartOf="@+id/changePhotoButton" />
 
 </RelativeLayout>

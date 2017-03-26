@@ -37,11 +37,14 @@ public class EditContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
     public final static String RETURN_EDIT = "Return Edit";
+    private final static String ACTIVITY_TITLE = "Edit Contact";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
+
+        getSupportActionBar().setTitle(ACTIVITY_TITLE);
 
         final Context context = getApplicationContext();
 
