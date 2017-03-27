@@ -41,6 +41,9 @@ public class NewContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_contact);
 
+        // Show back button in action bar, boolena method to go back is at the end of activity
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         getSupportActionBar().setTitle(ACTIVITY_TITLE);
 
         photoView = (ImageView) findViewById(R.id.photoView);
@@ -159,5 +162,12 @@ public class NewContact extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    // Method to go back
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }
