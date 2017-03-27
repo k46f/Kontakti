@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void addNew(View v) {
+    public void addNew(MenuItem mi) {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, NewContact.class);
         startActivity(intent);
@@ -70,5 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBackPressed(){
         moveTaskToBack(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+        return true;
     }
 }
