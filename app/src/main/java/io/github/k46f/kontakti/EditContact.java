@@ -11,6 +11,8 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +48,6 @@ public class EditContact extends AppCompatActivity {
 
         // Show back button in action bar, boolena method to go back is at the end of activity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setTitle(ACTIVITY_TITLE);
 
         final Context context = getApplicationContext();
@@ -227,6 +228,13 @@ public class EditContact extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp(){
         finish();
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_edit_contact, menu);
         return true;
     }
 }
