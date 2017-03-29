@@ -7,17 +7,24 @@ import android.view.View;
 import android.widget.Toast;
 
 public class MainActivityDeleteBar {
+
+    private String contact_id;
+    private View view;
+
+    MainActivityDeleteBar(String contactId, View v){
+        contact_id = contactId;
+        view = v;
+    }
     // Tracks current contextual action mode
     private ActionMode currentActionMode;
 
     private final static String TITLE = "Delete";
 
     // Called when the user long-clicks on someView
-    public boolean onLongClick(View view, String id) {
+    public boolean onLongClick() {
         if (currentActionMode != null) {
             return false;
         }
-        String contact_id = id;
         view.startActionMode(modeCallBack);
         view.setSelected(true);
         return true;
