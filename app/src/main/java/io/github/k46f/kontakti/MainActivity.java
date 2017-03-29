@@ -76,9 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 String contact_id = onClickListView.getString(data);
                 onClickListView.close();
 
-                Intent intent = new Intent(context, ViewContact.class);
-                intent.putExtra(CONTACT_ID, contact_id);
-                startActivity(intent);
+                MainActivityDeleteBar deleteBar = new MainActivityDeleteBar();
+                deleteBar.onLongClick(view, contact_id);
 
                 return true;
             }
