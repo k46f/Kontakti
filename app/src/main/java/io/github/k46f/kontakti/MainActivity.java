@@ -1,10 +1,12 @@
 package io.github.k46f.kontakti;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String CONTACT_ID = ">>> Pass Contact Id";
     private final static String NAME_FOR_CONTACT_ID = "contact_id";
+
+    Context ctx = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +82,43 @@ public class MainActivity extends AppCompatActivity {
 
                 MainActivityDeleteBar deleteBar = new MainActivityDeleteBar(contact_id, view);
                 deleteBar.onLongClick();
+
+                // Step 4 - Setup the listener for this object
+                deleteBar.setCustomObjectListener(new MainActivityDeleteBar.DeleteButtonListener() {
+                    @Override
+                    public void onButtonPressed(final String contactId) {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+
+                        builder.setTitle("Are you sure?");
+
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                DatabaseManager dbm = new DatabaseManager(ctx);
+                                dbm.openDb();
+                                dbm.deleteContact(contactId);
+
+                                Intent mainActivityIntent = new Intent(ctx, MainActivity.class);
+                                startActivity(mainActivityIntent);
+
+                                Toast kToast = Toast.makeText(ctx, "Deleted!", Toast.LENGTH_LONG);
+                                kToast.show();
+
+                            }
+                        });
+
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                    }
+                });
 
                 return true;
             }

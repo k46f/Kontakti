@@ -14,7 +14,21 @@ public class MainActivityDeleteBar {
     MainActivityDeleteBar(String contactId, View v){
         contact_id = contactId;
         view = v;
+        // set null or default listener or accept as argument to constructor
+        this.listener = null;
     }
+
+    // Step 1 - This interface defines the type of messages I want to communicate to my owner
+    public interface DeleteButtonListener {
+        // These methods are the different events and
+        // need to pass relevant arguments related to the event triggered
+        public void onButtonPressed(String id);
+    }
+
+    // Step 2 - This variable represents the listener passed in by the owning object
+    // The listener must implement the events interface and passes messages up to the parent.
+    private DeleteButtonListener listener;
+
     // Tracks current contextual action mode
     private ActionMode currentActionMode;
 
@@ -52,7 +66,7 @@ public class MainActivityDeleteBar {
             switch (item.getItemId()) {
                 case R.id.deleteMainButton:
                     // Trigger the deletion here
-                    mode.finish(); // Action picked, so close the contextual menu
+                    listener.onButtonPressed(contact_id); // <---- fire listener here
                     return true;
                 default:
                     return false;
@@ -65,4 +79,9 @@ public class MainActivityDeleteBar {
             currentActionMode = null; // Clear current action mode
         }
     };
+
+    // Assign the listener implementing events interface that will receive the events
+    public void setCustomObjectListener(DeleteButtonListener listener) {
+        this.listener = listener;
+    }
 }
