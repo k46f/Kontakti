@@ -210,13 +210,7 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
     }
 
     protected void onStop() {
-        // Disconnecting the location client invalidates it.
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, (LocationListener) this);
-
-        // only stop if it's connected, otherwise we crash
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.disconnect();
-        }
+        mGoogleApiClient.disconnect();
         super.onStop();
     }
 
