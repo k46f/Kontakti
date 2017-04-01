@@ -113,6 +113,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
                 String textEmail = emailText.getText().toString();
                 String textFacebook = facebookText.getText().toString();
                 String textBirthday = birthdayText.getText().toString();
+                String textLocation = locationText.getText().toString();
 
                 // Convert ImageView Image from resources to a Bitmap
                 BitmapDrawable drawablePhoto = (BitmapDrawable) photoView.getDrawable();
@@ -133,7 +134,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
                         DatabaseManager dbm = new DatabaseManager(context);
                         dbm.openDb();
                         int result = dbm.updateContact(textName, textPhone, textAddress, textEmail,
-                                textFacebook, textBirthday, contactId, photoInByte);
+                                textFacebook, textBirthday, contactId, photoInByte, textLocation);
                         dbm.closeDb();
                         if (result > 0) {
 

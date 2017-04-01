@@ -99,6 +99,7 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
                     String textAddress = addressText.getText().toString();
                     String textEmail = emailText.getText().toString();
                     String textFacebook = facebookText.getText().toString();
+                    String textLocation = locationText.getText().toString();
                     String textBirthday = birthdayText.getText().toString();
 
                     if (textName.equals("")) {
@@ -112,7 +113,7 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
                             DatabaseManager dbm = new DatabaseManager(context);
                             dbm.openDb();
                             long result = dbm.register(textName, textPhone, textAddress, textEmail, textFacebook,
-                                    textBirthday, photoInByte);
+                                    textBirthday, photoInByte, textLocation);
                             dbm.closeDb();
                             if (result > 0) {
 

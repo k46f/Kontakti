@@ -21,6 +21,7 @@ class DatabaseManager extends SQLiteOpenHelper {
     private final static String NAME_FOR_CONTACT_EMAIL = "email";
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
+    private final static String NAME_FOR_CONTACT_LOCATION = "location";
     private final static String NAME_FOR_CONTACT_PHOTO = "photo";
     private final static String NAME_FOR_CONTACT_ID = "contact_id";
     private final static String TABLE_NAME = "contacts";
@@ -32,7 +33,8 @@ class DatabaseManager extends SQLiteOpenHelper {
             "email TEXT," +
             "facebook TEXT," +
             "birthday TEXT," +
-            "photo BLOB)";
+            "photo BLOB" +
+            "location TEXT)";
     private final static String DROP_TABLE = "DROP TABLE IF EXIST db_kontakti";
     private final static String DATABASE_NAME = "db_kontakti";
 
@@ -62,7 +64,9 @@ class DatabaseManager extends SQLiteOpenHelper {
     }
 
     Long register(String kname, String kphone, String kaddress, String kemail,
-                           String kfacebook, String kbirthday, byte[] kphoto) throws Exception{
+                  String kfacebook, String kbirthday, byte[] kphoto, String klocation)
+            throws Exception{
+
         ContentValues kValues = new ContentValues();
         kValues.put(NAME_FOR_CONTACT_NAME, kname);
         kValues.put(NAME_FOR_CONTACT_PHONE, kphone);
@@ -71,6 +75,7 @@ class DatabaseManager extends SQLiteOpenHelper {
         kValues.put(NAME_FOR_CONTACT_FACEBOOK, kfacebook);
         kValues.put(NAME_FOR_CONTACT_BIRTHDAY, kbirthday);
         kValues.put(NAME_FOR_CONTACT_PHOTO, kphoto);
+        kValues.put(NAME_FOR_CONTACT_LOCATION, klocation);
 
         return dataBase.insert(TABLE_NAME, null, kValues);
     }
@@ -86,7 +91,8 @@ class DatabaseManager extends SQLiteOpenHelper {
                 NAME_FOR_CONTACT_FACEBOOK,
                 NAME_FOR_CONTACT_BIRTHDAY,
                 NAME_FOR_CONTACT_ID,
-                NAME_FOR_CONTACT_PHOTO
+                NAME_FOR_CONTACT_PHOTO,
+                NAME_FOR_CONTACT_LOCATION
         };
 
         Cursor cursor = dataBase.query(TABLE_NAME, columns, null, null, null, null, null);
@@ -123,7 +129,9 @@ class DatabaseManager extends SQLiteOpenHelper {
     }
 
     int updateContact(String kname, String kphone, String kaddress, String kemail,
-                  String kfacebook, String kbirthday, String kId, byte[] kphoto) throws Exception{
+                      String kfacebook, String kbirthday, String kId, byte[] kphoto, String klocation)
+            throws Exception{
+
         ContentValues kValues = new ContentValues();
         kValues.put(NAME_FOR_CONTACT_NAME, kname);
         kValues.put(NAME_FOR_CONTACT_PHONE, kphone);
@@ -132,6 +140,7 @@ class DatabaseManager extends SQLiteOpenHelper {
         kValues.put(NAME_FOR_CONTACT_FACEBOOK, kfacebook);
         kValues.put(NAME_FOR_CONTACT_BIRTHDAY, kbirthday);
         kValues.put(NAME_FOR_CONTACT_PHOTO, kphoto);
+        kValues.put(NAME_FOR_CONTACT_LOCATION, klocation);
 
         return dataBase.update(TABLE_NAME, kValues, "contact_id = "+kId, null);
     }
