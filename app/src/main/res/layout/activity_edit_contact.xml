@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:fillViewport="false">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -139,8 +144,9 @@
         android:layout_height="wrap_content"
         android:textSize="10sp"
         android:layout_alignParentBottom="true"
-        android:text="Delete"
-        android:layout_toStartOf="@+id/floatingActionButton3" />
+        android:text="Get Location"
+        android:layout_toStartOf="@+id/floatingActionButton3"
+        android:onClick="getLocation"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton3"
@@ -155,3 +161,4 @@
         app:srcCompat="@drawable/ic_camera_enhance_white_24dp" />
 
 </RelativeLayout>
+</ScrollView>

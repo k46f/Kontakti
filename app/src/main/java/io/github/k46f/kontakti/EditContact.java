@@ -1,16 +1,23 @@
 package io.github.k46f.kontakti;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -19,10 +26,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class EditContact extends AppCompatActivity {
+public class EditContact extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public final static int PICK_PHOTO_CODE = 1046;
 
@@ -30,7 +41,7 @@ public class EditContact extends AppCompatActivity {
 
     private Button changePhotoButton, saveButton, deleteButton;
     private ImageView photoView;
-    private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText;
+    private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText, locationText;
 
     private final static String NAME_FOR_CONTACT_NAME = "name";
     private final static String NAME_FOR_CONTACT_PHONE = "phone";
@@ -41,10 +52,20 @@ public class EditContact extends AppCompatActivity {
     public final static String RETURN_EDIT = "Return Edit";
     private final static String ACTIVITY_TITLE = "Edit Contact";
 
+    private GoogleApiClient mGoogleApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
+
+        // Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
 
         // Show back button in action bar, boolena method to go back is at the end of activity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,6 +81,7 @@ public class EditContact extends AppCompatActivity {
         addressText = (EditText) findViewById(R.id.addressText);
         emailText = (EditText) findViewById(R.id.emailText);
         facebookText = (EditText) findViewById(R.id.facebookText);
+        locationText = (EditText) findViewById(R.id.locationText);
         birthdayText = (EditText) findViewById(R.id.birthdayText);
 
         DatabaseManager dbm = new DatabaseManager(context);
@@ -127,15 +149,8 @@ public class EditContact extends AppCompatActivity {
             }
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                onDelete(contactId);
-            }
-        });
-
      }
+    }
 
     public void onChangePhoto(View view){
 
@@ -236,5 +251,70 @@ public class EditContact extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_edit_contact, menu);
         return true;
+    }
+
+    protected void onStart() {
+        super.onStart();
+        // Connect the location client.
+        mGoogleApiClient.connect();
+    }
+
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        // Get last known recent location.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        Location mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        // Note that this can be NULL if last location isn't already known.
+        if (mCurrentLocation != null) {
+            // Print current location if not null
+            Log.d("DEBUG", "current location: " + mCurrentLocation.toString());
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        if (i == CAUSE_SERVICE_DISCONNECTED) {
+            Toast.makeText(this, "Disconnected. Please re-connect.", Toast.LENGTH_SHORT).show();
+        } else if (i == CAUSE_NETWORK_LOST) {
+            Toast.makeText(this, "Network lost. Please re-connect.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast connectionFailed = Toast.makeText(this, "Connection Failed", Toast.LENGTH_LONG);
+        connectionFailed.show();
+    }
+
+    public void getLocation(View view){
+
+        locationText = (EditText) findViewById(R.id.locationText);
+        // Get last known recent location.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        Location mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        // Note that this can be NULL if last location isn't already known.
+        if (mCurrentLocation != null) {
+            // Print current location if not null
+            Log.d("DEBUG", "current location: " + mCurrentLocation.toString());
+            String latitude = String.valueOf(mCurrentLocation.getLatitude());
+            String longitude = String.valueOf(mCurrentLocation.getLongitude());
+
+            locationText.setText(latitude + " " + longitude);
+        }
     }
 }
