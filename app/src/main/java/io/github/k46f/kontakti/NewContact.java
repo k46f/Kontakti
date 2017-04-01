@@ -26,7 +26,7 @@ public class NewContact extends AppCompatActivity {
 
     private Button saveButton;
     private ImageView photoView;
-    private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText;
+    private EditText nameText, phoneText, addressText, emailText, facebookText, birthdayText, locationText;
     private final static String NEW_SUCCESS_MESSAGE = "Contact Saved!";
 
     public static final String RETURN_SAVE = "1";
@@ -54,6 +54,7 @@ public class NewContact extends AppCompatActivity {
         emailText = (EditText) findViewById(R.id.emailText);
         facebookText = (EditText) findViewById(R.id.facebookText);
         birthdayText = (EditText) findViewById(R.id.birthdayText);
+        locationText = (EditText) findViewById(R.id.locationText);
         saveButton = (Button) findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
