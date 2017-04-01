@@ -49,6 +49,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
     private final static String NAME_FOR_CONTACT_EMAIL = "email";
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
+    private final static String NAME_FOR_CONTACT_LOCATION = "location";
     public final static String RETURN_EDIT = "Return Edit";
     private final static String ACTIVITY_TITLE = "Edit Contact";
 
@@ -96,6 +97,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         emailText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_EMAIL));
         facebookText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
         birthdayText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
+        locationText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_LOCATION));    
 
         byte[] photo = dbm.getContactPhoto(contactId);
         Bitmap contactPhoto = BitmapFactory.decodeByteArray(photo, 0, photo.length);
