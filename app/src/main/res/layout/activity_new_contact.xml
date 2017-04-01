@@ -38,7 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/saveButton"
-        android:id="@+id/locationButton" />
+        android:id="@+id/locationButton"
+        android:onClick="getLocation"/>
 
 
     <android.support.design.widget.TextInputLayout

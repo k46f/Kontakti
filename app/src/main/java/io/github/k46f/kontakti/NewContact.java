@@ -179,4 +179,10 @@ public class NewContact extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_new_contact, menu);
         return true;
     }
+
+    public void getLocation(View view){
+
+        locationText = (EditText) findViewById(R.id.locationText);
+        locationText.setText("hello");
+    }
 }
