@@ -19,7 +19,7 @@ public class ViewContact extends AppCompatActivity {
     public final static String CONTACT_ID = ">>> Pass Contact Id";
 
     private TextView fullName;
-    private EditText phoneView, addressView, emailView, facebookView, birthdayView;
+    private EditText phoneView, addressView, emailView, facebookView, birthdayView, locationView;
     private ImageView photoView;
 
     private final static String NAME_FOR_CONTACT_NAME = "name";
@@ -28,6 +28,7 @@ public class ViewContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_EMAIL = "email";
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
+    private final static String NAME_FOR_CONTACT_LOCATION = "location";
     private String contactId;
     private final static String EDIT_SUCCESS = "Contact edited success!";
 
@@ -46,6 +47,7 @@ public class ViewContact extends AppCompatActivity {
         emailView = (EditText) findViewById(R.id.emailView);
         facebookView = (EditText) findViewById(R.id.facebookView);
         birthdayView = (EditText) findViewById(R.id.birthdayView);
+        locationView = (EditText) findViewById(R.id.locationView);
         fullName = (TextView) findViewById(R.id.fullname);
         photoView = (ImageView) findViewById(R.id.photoView);
 
@@ -72,6 +74,7 @@ public class ViewContact extends AppCompatActivity {
         facebookView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
         birthdayView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
         phoneView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_PHONE));
+        locationView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_LOCATION));
 
         byte[] photo = dbm.getContactPhoto(contactId);
         Bitmap contactPhoto = BitmapFactory.decodeByteArray(photo, 0, photo.length);
