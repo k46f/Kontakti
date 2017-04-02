@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,59 +81,56 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
             locationText = (EditText) findViewById(R.id.locationText);
             saveButton = (Button) findViewById(R.id.saveButton);
 
-            saveButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        }
+    }
 
-                    // Convert ImageView Image from resources to a Bitmap
-                    BitmapDrawable drawablePhoto = (BitmapDrawable) photoView.getDrawable();
-                    Bitmap contactPhoto = drawablePhoto.getBitmap();
+    public void onNewSave(MenuItem item){
+        // Convert ImageView Image from resources to a Bitmap
+        BitmapDrawable drawablePhoto = (BitmapDrawable) photoView.getDrawable();
+        Bitmap contactPhoto = drawablePhoto.getBitmap();
 
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    byte photoInByte[] = stream.toByteArray();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte photoInByte[] = stream.toByteArray();
 
-                    Context context = getApplicationContext();
+        Context context = getApplicationContext();
 
-                    String textName = nameText.getText().toString();
-                    String textPhone = phoneText.getText().toString();
-                    String textAddress = addressText.getText().toString();
-                    String textEmail = emailText.getText().toString();
-                    String textFacebook = facebookText.getText().toString();
-                    String textLocation = locationText.getText().toString();
-                    String textBirthday = birthdayText.getText().toString();
+        String textName = nameText.getText().toString();
+        String textPhone = phoneText.getText().toString();
+        String textAddress = addressText.getText().toString();
+        String textEmail = emailText.getText().toString();
+        String textFacebook = facebookText.getText().toString();
+        String textLocation = locationText.getText().toString();
+        String textBirthday = birthdayText.getText().toString();
 
-                    if (textName.equals("")) {
+        if (textName.equals("")) {
 
-                        Toast noName = Toast.makeText(context, "Please enter a name", Toast.LENGTH_LONG);
-                        noName.show();
+            Toast noName = Toast.makeText(context, "Please enter a name", Toast.LENGTH_LONG);
+            noName.show();
 
-                    } else {
+        } else {
 
-                        try {
-                            DatabaseManager dbm = new DatabaseManager(context);
-                            dbm.openDb();
-                            long result = dbm.register(textName, textPhone, textAddress, textEmail, textFacebook,
-                                    textBirthday, photoInByte, textLocation);
-                            dbm.closeDb();
-                            if (result > 0) {
+            try {
+                DatabaseManager dbm = new DatabaseManager(context);
+                dbm.openDb();
+                long result = dbm.register(textName, textPhone, textAddress, textEmail, textFacebook,
+                        textBirthday, photoInByte, textLocation);
+                dbm.closeDb();
+                if (result > 0) {
 
-                                Intent successIntent = new Intent(context, MainActivity.class);
-                                startActivity(successIntent);
+                    Intent successIntent = new Intent(context, MainActivity.class);
+                    startActivity(successIntent);
 
-                                Toast kToast = Toast.makeText(context, NEW_SUCCESS_MESSAGE, Toast.LENGTH_LONG);
-                                kToast.show();
+                    Toast kToast = Toast.makeText(context, NEW_SUCCESS_MESSAGE, Toast.LENGTH_LONG);
+                    kToast.show();
 
-                            }
-                        } catch (Exception e) {
-
-                            Toast kToast = Toast.makeText(context, e.toString(), Toast.LENGTH_LONG);
-                            kToast.show();
-                        }
-
-                    }
                 }
-            });
+            } catch (Exception e) {
+
+                Toast kToast = Toast.makeText(context, e.toString(), Toast.LENGTH_LONG);
+                kToast.show();
+            }
+
         }
     }
 

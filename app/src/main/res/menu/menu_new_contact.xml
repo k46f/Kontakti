@@ -4,6 +4,7 @@
         android:id="@+id/miCompose"
         android:icon="@drawable/ic_save_white_24dp"
         app:showAsAction="ifRoom"
-        android:title="Compose">
+        android:onClick="onNewSave"
+        android:title="Save">
     </item>
 </menu>
