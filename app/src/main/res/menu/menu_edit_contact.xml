@@ -12,6 +12,7 @@
         android:id="@+id/saveBarButton"
         android:icon="@drawable/ic_save_white_24dp"
         app:showAsAction="ifRoom"
-        android:title="Save">
+        android:title="Save"
+        android:onClick="onSave">
     </item>
 </menu>

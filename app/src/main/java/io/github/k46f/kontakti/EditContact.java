@@ -58,6 +58,8 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
     private String contactId;
 
+    private Context ctx = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,54 +109,6 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         photoView.setImageBitmap(contactPhoto);
 
         dbm.closeDb();
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String textName = nameText.getText().toString();
-                String textPhone = phoneText.getText().toString();
-                String textAddress = addressText.getText().toString();
-                String textEmail = emailText.getText().toString();
-                String textFacebook = facebookText.getText().toString();
-                String textBirthday = birthdayText.getText().toString();
-                String textLocation = locationText.getText().toString();
-
-                // Convert ImageView Image from resources to a Bitmap
-                BitmapDrawable drawablePhoto = (BitmapDrawable) photoView.getDrawable();
-                Bitmap contactPhoto = drawablePhoto.getBitmap();
-
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte photoInByte[] = stream.toByteArray();
-
-                if (textName.equals("")){
-
-                    Toast noName = Toast.makeText(context, "Please enter a name", Toast.LENGTH_LONG);
-                    noName.show();
-
-                } else {
-
-                    try {
-                        DatabaseManager dbm = new DatabaseManager(context);
-                        dbm.openDb();
-                        int result = dbm.updateContact(textName, textPhone, textAddress, textEmail,
-                                textFacebook, textBirthday, contactId, photoInByte, textLocation);
-                        dbm.closeDb();
-                        if (result > 0) {
-
-                            Intent successIntent = new Intent(getApplicationContext(), ViewContact.class);
-                            successIntent.putExtra(RETURN_EDIT, contactId);
-                            startActivity(successIntent);
-                        }
-                    } catch (Exception exception) {
-                        Toast kToast = Toast.makeText(context, exception.toString(), Toast.LENGTH_LONG);
-                        kToast.show();
-                    }
-                }
-            }
-        });
-
      }
     }
 
@@ -244,6 +198,51 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void onSave(MenuItem item){
+
+
+        String textName = nameText.getText().toString();
+        String textPhone = phoneText.getText().toString();
+        String textAddress = addressText.getText().toString();
+        String textEmail = emailText.getText().toString();
+        String textFacebook = facebookText.getText().toString();
+        String textBirthday = birthdayText.getText().toString();
+        String textLocation = locationText.getText().toString();
+
+        // Convert ImageView Image from resources to a Bitmap
+        BitmapDrawable drawablePhoto = (BitmapDrawable) photoView.getDrawable();
+        Bitmap contactPhoto = drawablePhoto.getBitmap();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte photoInByte[] = stream.toByteArray();
+
+        if (textName.equals("")){
+
+            Toast noName = Toast.makeText(ctx, "Please enter a name", Toast.LENGTH_LONG);
+            noName.show();
+
+        } else {
+
+            try {
+                DatabaseManager dbm = new DatabaseManager(ctx);
+                dbm.openDb();
+                int result = dbm.updateContact(textName, textPhone, textAddress, textEmail,
+                        textFacebook, textBirthday, contactId, photoInByte, textLocation);
+                dbm.closeDb();
+                if (result > 0) {
+
+                    Intent successIntent = new Intent(getApplicationContext(), ViewContact.class);
+                    successIntent.putExtra(RETURN_EDIT, contactId);
+                    startActivity(successIntent);
+                }
+            } catch (Exception exception) {
+                Toast kToast = Toast.makeText(ctx, exception.toString(), Toast.LENGTH_LONG);
+                kToast.show();
+            }
+        }
     }
     // Method to go back
     @Override
