@@ -23,15 +23,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="Get Location"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/locationButton"
-        android:onClick="getLocation"/>
-
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/nameLayout"
@@ -128,14 +119,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/birthdayLayout">
+        android:layout_below="@+id/birthdayLayout"
+        android:onClick="getLocation">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:hint="Location"
+            android:text="Get Location"
             android:inputType="textPersonName"
-            android:id="@+id/locationText"/>
+            android:id="@+id/locationText"
+            android:onClick="getLocation"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.FloatingActionButton
