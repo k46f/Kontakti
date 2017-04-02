@@ -135,6 +135,13 @@ public class ViewContact extends AppCompatActivity {
         }
     }
 
+    public void facebookClick(View view){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + facebookView.getText().toString()));
+        if (browserIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(browserIntent);
+        }
+    }
+
     public void editContact(MenuItem mi) {
         Intent firstIntent = getIntent();
         String contactId = firstIntent.getStringExtra(MainActivity.CONTACT_ID);
