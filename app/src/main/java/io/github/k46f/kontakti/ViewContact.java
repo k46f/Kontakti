@@ -2,8 +2,12 @@ package io.github.k46f.kontakti;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -59,7 +63,7 @@ public class ViewContact extends AppCompatActivity {
         String contactIdMain = intent.getStringExtra(MainActivity.CONTACT_ID);
         String contactIdEdit = intent.getStringExtra(EditContact.RETURN_EDIT);
 
-        if (contactIdMain != null){
+        if (contactIdMain != null) {
             contactId = contactIdMain;
         } else {
             contactId = contactIdEdit;
@@ -83,6 +87,19 @@ public class ViewContact extends AppCompatActivity {
         dbm.closeDb();
     }
 
+    public void phoneClick(View view){
+
+
+
+
+        
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + phoneView.getText().toString()));
+        if (callIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(callIntent);
+        }
+    }
+
     public void editContact(MenuItem mi) {
         Intent firstIntent = getIntent();
         String contactId = firstIntent.getStringExtra(MainActivity.CONTACT_ID);
@@ -93,14 +110,14 @@ public class ViewContact extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     // Method to go back
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
