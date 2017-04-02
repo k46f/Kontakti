@@ -1,10 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/miCompose"
+        android:id="@+id/miLogin"
+        android:icon="@drawable/common_google_signin_btn_icon_light"
+        app:showAsAction="ifRoom"
+        android:onClick="signIn"
+        android:title="Log In">
+    </item>
+    <item
+        android:id="@+id/miAdd"
         android:icon="@drawable/ic_add_white_24dp"
         app:showAsAction="ifRoom"
         android:onClick="addNew"
-        android:title="Compose">
+        android:title="Add">
     </item>
 </menu>
