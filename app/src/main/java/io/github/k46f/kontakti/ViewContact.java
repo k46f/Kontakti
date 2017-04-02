@@ -1,6 +1,7 @@
 package io.github.k46f.kontakti;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -89,14 +91,47 @@ public class ViewContact extends AppCompatActivity {
 
     public void phoneClick(View view){
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        builder.setTitle("¿What do you wish?");
 
+        builder.setPositiveButton("Call", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
 
-        
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + phoneView.getText().toString()));
-        if (callIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(callIntent);
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + phoneView.getText().toString()));
+                if (callIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(callIntent);
+                }
+
+            }
+        });
+        builder.setNegativeButton("Sms", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                String to = phoneView.getText().toString();
+
+                Uri smsUri = Uri.parse("tel:" + to);
+                Intent intent = new Intent(Intent.ACTION_VIEW, smsUri);
+                intent.putExtra("address", to);
+                intent.setType("vnd.android-dir/mms-sms");//here setType will set the previous data null.
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void emailClick(View view){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("plain/text");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { emailView.getText().toString() });
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(Intent.createChooser(intent, ""));
         }
     }
 

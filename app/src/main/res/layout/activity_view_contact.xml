@@ -74,7 +74,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/addressLayout">
+        android:layout_below="@+id/addressLayout"
+        android:onClick="emailClick">
 
         <EditText
             android:longClickable="false"
@@ -84,7 +85,8 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:id="@+id/emailView"/>
+            android:id="@+id/emailView"
+            android:onClick="emailClick"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
