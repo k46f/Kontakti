@@ -100,7 +100,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         emailText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_EMAIL));
         facebookText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
         birthdayText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
-        String location = dbm.getSingleField(contactId, NAME_FOR_CONTACT_LOCATION) + " (Touch to refresh)";
+        String location = dbm.getSingleField(contactId, NAME_FOR_CONTACT_LOCATION);
         locationText.setText(location);
 
         byte[] photo = dbm.getContactPhoto(contactId);
