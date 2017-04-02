@@ -79,7 +79,6 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
         final Context context = getApplicationContext();
 
-        deleteButton = (Button) findViewById(R.id.deleteButton);
         photoView = (ImageView) findViewById(R.id.photoView);
         nameText = (EditText) findViewById(R.id.nameText);
         phoneText = (EditText) findViewById(R.id.phoneText);
@@ -101,7 +100,8 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         emailText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_EMAIL));
         facebookText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
         birthdayText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
-        locationText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_LOCATION));    
+        String location = dbm.getSingleField(contactId, NAME_FOR_CONTACT_LOCATION) + " (Touch to refresh)";
+        locationText.setText(location);
 
         byte[] photo = dbm.getContactPhoto(contactId);
         Bitmap contactPhoto = BitmapFactory.decodeByteArray(photo, 0, photo.length);
