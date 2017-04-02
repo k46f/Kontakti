@@ -79,7 +79,6 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
         final Context context = getApplicationContext();
 
-        saveButton = (Button) findViewById(R.id.saveButton);
         deleteButton = (Button) findViewById(R.id.deleteButton);
         photoView = (ImageView) findViewById(R.id.photoView);
         nameText = (EditText) findViewById(R.id.nameText);

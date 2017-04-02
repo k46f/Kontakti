@@ -79,7 +79,6 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
             facebookText = (EditText) findViewById(R.id.facebookText);
             birthdayText = (EditText) findViewById(R.id.birthdayText);
             locationText = (EditText) findViewById(R.id.locationText);
-            saveButton = (Button) findViewById(R.id.saveButton);
 
         }
     }
