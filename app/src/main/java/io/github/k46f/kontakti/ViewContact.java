@@ -153,6 +153,15 @@ public class ViewContact extends AppCompatActivity {
         }
     }
 
+    public void locationClick(View view){
+        Uri gmmIntentUri = Uri.parse("geo:" + locationView.getText().toString());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
+    }
+
     public void editContact(MenuItem mi) {
         Intent firstIntent = getIntent();
         String contactId = firstIntent.getStringExtra(MainActivity.CONTACT_ID);

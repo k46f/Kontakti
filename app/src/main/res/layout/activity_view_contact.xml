@@ -134,7 +134,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/birthdayLayout">
+        android:layout_below="@+id/birthdayLayout"
+        android:onClick="locationClick">
 
         <EditText
             android:longClickable="false"
@@ -144,7 +145,8 @@
             android:layout_height="wrap_content"
             android:hint="Location"
             android:inputType="date"
-            android:id="@+id/locationView"/>
+            android:id="@+id/locationView"
+            android:onClick="locationClick"/>
     </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>
