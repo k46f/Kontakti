@@ -263,7 +263,7 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
             String latitude = String.valueOf(mCurrentLocation.getLatitude());
             String longitude = String.valueOf(mCurrentLocation.getLongitude());
 
-            locationText.setText(latitude + " " + longitude);
+            locationText.setText(latitude + "," + longitude);
         }
     }
 }
