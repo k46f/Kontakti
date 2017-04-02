@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class ViewContact extends AppCompatActivity {
 
     public final static String CONTACT_ID = ">>> Pass Contact Id";
@@ -91,54 +93,63 @@ public class ViewContact extends AppCompatActivity {
 
     public void phoneClick(View view){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if (!Objects.equals(phoneView.getText().toString(), "")) {
 
-        builder.setTitle("¿What do you wish?");
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setPositiveButton("Call", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+            builder.setTitle("¿What do you wish?");
 
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + phoneView.getText().toString()));
-                if (callIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(callIntent);
+            builder.setPositiveButton("Call", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + phoneView.getText().toString()));
+                    if (callIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(callIntent);
+                    }
+
                 }
+            });
+            builder.setNegativeButton("Sms", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
 
-            }
-        });
-        builder.setNegativeButton("Sms", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+                    String to = phoneView.getText().toString();
 
-                String to = phoneView.getText().toString();
+                    Uri smsUri = Uri.parse("tel:" + to);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, smsUri);
+                    intent.putExtra("address", to);
+                    intent.setType("vnd.android-dir/mms-sms");//here setType will set the previous data null.
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
 
-                Uri smsUri = Uri.parse("tel:" + to);
-                Intent intent = new Intent(Intent.ACTION_VIEW, smsUri);
-                intent.putExtra("address", to);
-                intent.setType("vnd.android-dir/mms-sms");//here setType will set the previous data null.
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
                 }
+            });
 
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
     public void emailClick(View view){
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("plain/text");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { emailView.getText().toString() });
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(Intent.createChooser(intent, ""));
+        if (!Objects.equals(emailView.getText().toString(), "")) {
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("plain/text");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailView.getText().toString()});
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(Intent.createChooser(intent, ""));
+            }
         }
     }
 
     public void facebookClick(View view){
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + facebookView.getText().toString()));
-        if (browserIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(browserIntent);
+        if (!Objects.equals(phoneView.getText().toString(), "")) {
+
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + facebookView.getText().toString()));
+            if (browserIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(browserIntent);
+            }
         }
     }
 
