@@ -4,13 +4,14 @@
         android:id="@+id/deleteBarButton"
         android:icon="@drawable/ic_delete_white_24dp"
         app:showAsAction="ifRoom"
-        android:title="Compose">
+        android:title="Delete"
+        android:onClick="onDelete">
     </item>
 
     <item
         android:id="@+id/saveBarButton"
         android:icon="@drawable/ic_save_white_24dp"
         app:showAsAction="ifRoom"
-        android:title="Compose">
+        android:title="Save">
     </item>
 </menu>

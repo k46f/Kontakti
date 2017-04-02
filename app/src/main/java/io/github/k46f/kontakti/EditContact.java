@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,8 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
     private GoogleApiClient mGoogleApiClient;
 
+    private String contactId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +92,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         dbm.openDb();
 
         Intent intent = getIntent();
-        final String contactId = intent.getStringExtra(ViewContact.CONTACT_ID);
+        contactId = intent.getStringExtra(ViewContact.CONTACT_ID);
 
         nameText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_NAME));
         phoneText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_PHONE));
@@ -210,7 +213,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         }
     }
 
-    public void onDelete(final String contactId) {
+    public void onDelete(MenuItem item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Are you sure?");
