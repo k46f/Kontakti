@@ -2,6 +2,7 @@ package io.github.k46f.kontakti;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
@@ -38,10 +39,14 @@ public class MainActivity extends AppCompatActivity {
 
     Context ctx = this;
 
+    SharedPreferences gAccountSettings = ctx.getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String accountID = gAccountSettings.getString("accountID", null);
 
         // DataBasemanager is a SQLiteOpenHelper class connecting to SQLite
         DatabaseManager dbm = new DatabaseManager(this);
