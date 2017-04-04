@@ -9,18 +9,20 @@
 
     <ImageButton
         android:id="@+id/imageButton"
+        style="@android:style/Widget.DeviceDefault.ImageButton"
         android:layout_width="78dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
+        android:onClick="signIn"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log in with Google"
+        android:text="Sign in with Google"
 
         style="@style/PersonNameText"
         android:layout_above="@+id/imageButton"

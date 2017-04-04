@@ -56,20 +56,33 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
 
             GoogleSignInAccount acct = result.getSignInAccount();
-            String accountId = acct.getId();
-            String personEmail = acct.getEmail();
-            String personName = acct.getDisplayName();
+
+            if (acct != null){
+                String accountId = acct.getId();
+                String personEmail = acct.getEmail();
+                String personName = acct.getDisplayName();
+                Uri personPhoto = acct.getPhotoUrl();
 
 
-            SharedPreferences.Editor editor = gAccountSettings.edit();
-            editor.putString("accountID", accountId);
-            editor.putString("personName", personName);
-            editor.putString("personEmail", personEmail);
+                SharedPreferences.Editor editor = gAccountSettings.edit();
+                editor.putString("accountID", accountId);
+                editor.putString("personName", personName);
+                editor.putString("personEmail", personEmail);
 
-            editor.apply();
+                if (personPhoto != null){
+                    editor.putString("personPhoto", personPhoto.toString());
+                }
+
+
+                editor.apply();
+
+                Intent signInSuccess = new Intent(ctx, MainActivity.class);
+                startActivity(signInSuccess);
+                this.finish();
+            }
+            handleSignInResult(result);
         }
     }
 
