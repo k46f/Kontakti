@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -59,7 +60,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         connectionFailed.show();
     }
 
-    public void signIn(MenuItem mi){
+    public void signIn(View view){
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
