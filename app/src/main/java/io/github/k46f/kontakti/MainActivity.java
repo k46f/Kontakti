@@ -36,17 +36,26 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String CONTACT_ID = ">>> Pass Contact Id";
     private final static String NAME_FOR_CONTACT_ID = "contact_id";
+    private String accountID;
 
     Context ctx = this;
 
-    SharedPreferences gAccountSettings = ctx.getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
+    SharedPreferences gAccountSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String accountID = gAccountSettings.getString("accountID", null);
+        gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
+
+        accountID = gAccountSettings.getString("accountID", null);
+
+        if (accountID == null){
+            Intent gSignIn = new Intent(ctx, Login.class);
+            startActivity(gSignIn);
+            this.finish();
+        }
 
         // DataBasemanager is a SQLiteOpenHelper class connecting to SQLite
         DatabaseManager dbm = new DatabaseManager(this);

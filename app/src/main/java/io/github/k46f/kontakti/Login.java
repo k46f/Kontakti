@@ -26,12 +26,14 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private Context ctx = this;
 
-    SharedPreferences gAccountSettings = ctx.getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
+    SharedPreferences gAccountSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
