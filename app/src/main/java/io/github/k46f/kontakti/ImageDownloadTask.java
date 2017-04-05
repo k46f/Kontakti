@@ -52,8 +52,9 @@ public class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
     // Fires after the task is completed, displaying the bitmap into the ImageView
     @Override
     protected void onPostExecute(Bitmap result) {
+        // Convert bitmap Image to Drawable
         Drawable icon = new BitmapDrawable(ctx.getResources(), result);
+        // Set Drawable for the result
         menu.getItem(0).setIcon(icon);
-        // Set bitmap image for the result
     }
 }
