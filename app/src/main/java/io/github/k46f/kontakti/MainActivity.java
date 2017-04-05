@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.provider.ContactsContract;
@@ -167,8 +168,9 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main_activity, menu);
 
         if (accountPhoto != null){
-            
-            menu.getItem(0).setIcon(R.drawable.common_google_signin_btn_icon_dark);
+
+            new ImageDownloadTask(menu, ctx).execute(accountPhoto);
+
         }
         return true;
     }
