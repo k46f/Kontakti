@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String CONTACT_ID = ">>> Pass Contact Id";
     private final static String NAME_FOR_CONTACT_ID = "contact_id";
-    private String accountID;
+    private String accountID, accountPhoto;
 
     Context ctx = this;
 
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
 
         accountID = gAccountSettings.getString("accountID", null);
+        accountPhoto = gAccountSettings.getString("personPhoto", null);
 
         if (accountID == null){
             Intent gSignIn = new Intent(ctx, Login.class);
@@ -162,6 +165,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+
+        if (accountPhoto != null){
+            
+            menu.getItem(0).setIcon(R.drawable.common_google_signin_btn_icon_dark);
+        }
         return true;
     }
 }
