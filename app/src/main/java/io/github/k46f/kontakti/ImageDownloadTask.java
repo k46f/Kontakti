@@ -13,11 +13,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
+class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
     private Menu menu;
     private Context ctx;
 
-    public ImageDownloadTask(Menu menu, Context context) {
+    ImageDownloadTask(Menu menu, Context context) {
         this.menu = menu;
         this.ctx = context;
     }

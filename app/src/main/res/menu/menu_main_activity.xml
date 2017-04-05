@@ -4,7 +4,7 @@
         android:id="@+id/miAccount"
         android:icon="@drawable/default_user"
         app:showAsAction="ifRoom"
-        android:onClick="addNew"
+        android:onClick="miAccountButton"
         android:title="Account">
     </item>
     <item

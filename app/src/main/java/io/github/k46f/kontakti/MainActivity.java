@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -162,6 +164,28 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void miAccountButton(MenuItem mi){
+        View menuItemView = findViewById(R.id.miAccount); // SAME ID AS MENU ID
+        PopupMenu popup = new PopupMenu(this, menuItemView);
+        // Inflate the menu from xml
+        popup.getMenuInflater().inflate(R.menu.menu_popup_account, popup.getMenu());
+        // Setup menu item selection
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.account_sign_out:
+                        Toast.makeText(MainActivity.this, "Keyword!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+        // Handle dismissal with: popup.setOnDismissListener(...);
+        // Show the menu
+        popup.show();
+    }
+
     public void onBackPressed(){
         moveTaskToBack(true);
     }
@@ -194,8 +218,7 @@ public class MainActivity extends AppCompatActivity {
             Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
             int     exitValue = ipProcess.waitFor();
             return (exitValue == 0);
-        } catch (IOException e)          { e.printStackTrace(); }
-        catch (InterruptedException e) { e.printStackTrace(); }
+        } catch (IOException | InterruptedException e) { e.printStackTrace(); }
         return false;
     }
 }
