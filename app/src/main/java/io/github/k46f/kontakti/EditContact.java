@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +32,11 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -56,14 +63,19 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
     private GoogleApiClient mGoogleApiClient;
 
-    private String contactId;
+    private String contactId, accountID;
 
     private Context ctx = this;
+
+    SharedPreferences gAccountSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_contact);
+
+        gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
+        accountID = gAccountSettings.getString("accountID", null);
 
         // Create an instance of GoogleAPIClient.
         if (mGoogleApiClient == null) {
@@ -88,26 +100,39 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         locationText = (EditText) findViewById(R.id.locationText);
         birthdayText = (EditText) findViewById(R.id.birthdayText);
 
-        DatabaseManager dbm = new DatabaseManager(context);
-        dbm.openDb();
-
         Intent intent = getIntent();
         contactId = intent.getStringExtra(ViewContact.CONTACT_ID);
 
-        nameText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_NAME));
-        phoneText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_PHONE));
-        addressText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_ADDRESS));
-        emailText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_EMAIL));
-        facebookText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
-        birthdayText.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
-        String location = dbm.getSingleField(contactId, NAME_FOR_CONTACT_LOCATION);
-        locationText.setText(location);
+            DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID+"/"+contactId);
 
-        byte[] photo = dbm.getContactPhoto(contactId);
-        Bitmap contactPhoto = BitmapFactory.decodeByteArray(photo, 0, photo.length);
-        photoView.setImageBitmap(contactPhoto);
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Get Post object and use the values to update the UI
+                    Contact contact = dataSnapshot.getValue(Contact.class);
 
-        dbm.closeDb();
+                    nameText.setText(contact.getName());
+                    addressText.setText(contact.getAddress());
+                    emailText.setText(contact.getEmail());
+                    facebookText.setText(contact.getFacebook());
+                    birthdayText.setText(contact.getBirthday());
+                    phoneText.setText(contact.getPhone());
+                    locationText.setText(contact.getLocation());
+
+                    byte[] decodedString = Base64.decode(contact.getPhoto(), Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    photoView.setImageBitmap(decodedByte);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Getting Post failed, log a message
+                    Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
+                    // ...
+                }
+            };
+
+            listViewRef.addValueEventListener(postListener);
      }
     }
 
