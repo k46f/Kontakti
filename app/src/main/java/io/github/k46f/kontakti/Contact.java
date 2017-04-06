@@ -1,33 +1,80 @@
 package io.github.k46f.kontakti;
 
-import android.database.Cursor;
-
-import java.util.ArrayList;
-
 public class Contact {
-    private final static String NAME_FOR_CONTACT_NAME = "name";
-    private final static String NAME_FOR_CONTACT_PHONE = "phone";
-    private final static String NAME_FOR_CONTACT_ADDRESS = "address";
-    private final static String NAME_FOR_CONTACT_EMAIL = "email";
-    private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
-    private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
-    private final static String NAME_FOR_CONTACT_ID = "contact_id";
+    String name;
+    String phone;
+    String address;
+    String email;
+    String facebook;
+    String birthday;
+    String photo;
 
-    private String name;
-    private String phone;
-    private String address;
-    private String email;
-    private String facebook;
-    private String birthday;
-    private String contact_id;
+    public Contact() {
+    }
 
-    Contact(Cursor cursor){
-        name = cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_NAME));
-        phone = cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_PHONE));
-        address = cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_ADDRESS));
-        email = cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_EMAIL));
-        facebook = cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_FACEBOOK));
-        birthday = cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_BIRTHDAY));
-        contact_id = cursor.getString(cursor.getColumnIndex(NAME_FOR_CONTACT_ID));
+    public Contact(String name, String phone, String address, String email, String facebook, String birthday, String photo) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.facebook = facebook;
+        this.birthday = birthday;
+        this.photo = photo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
