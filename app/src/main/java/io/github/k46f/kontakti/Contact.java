@@ -10,6 +10,9 @@ public class Contact {
     String location;
     String photo;
 
+    public Contact() {
+    }
+
     public Contact(String name, String phone, String address, String email, String facebook, String birthday, String location, String photo) {
         this.name = name;
         this.phone = phone;
