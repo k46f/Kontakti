@@ -96,15 +96,7 @@ public class MainActivity extends AppCompatActivity {
         kontakti_listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Context context = getApplicationContext();
-
-                DatabaseManager dbm = new DatabaseManager(context);
-                SQLiteDatabase db = dbm.getWritableDatabase();
-                Cursor onClickListView = db.rawQuery("SELECT contact_id FROM contacts", null);
-                onClickListView.moveToPosition(position);
-                int data = onClickListView.getColumnIndexOrThrow(NAME_FOR_CONTACT_ID);
-                String contact_id = onClickListView.getString(data);
-                onClickListView.close();
+                String contact_id = mAdapter.getRef(position).getKey();
 
                 MainActivityDeleteBar deleteBar = new MainActivityDeleteBar(contact_id, view);
                 deleteBar.onLongClick();
@@ -121,12 +113,9 @@ public class MainActivity extends AppCompatActivity {
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                DatabaseManager dbm = new DatabaseManager(ctx);
-                                dbm.openDb();
-                                dbm.deleteContact(contactId);
-
-                                Intent mainActivityIntent = new Intent(ctx, MainActivity.class);
-                                startActivity(mainActivityIntent);
+                                FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+                                DatabaseReference editReference = fbDatabase.getReference("users/"+accountID+"/"+contactId);
+                                editReference.setValue(null);
 
                                 Toast kToast = Toast.makeText(ctx, "Deleted!", Toast.LENGTH_LONG);
                                 kToast.show();
