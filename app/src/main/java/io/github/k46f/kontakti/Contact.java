@@ -7,18 +7,17 @@ public class Contact {
     String email;
     String facebook;
     String birthday;
+    String location;
     String photo;
 
-    public Contact() {
-    }
-
-    public Contact(String name, String phone, String address, String email, String facebook, String birthday, String photo) {
+    public Contact(String name, String phone, String address, String email, String facebook, String birthday, String location, String photo) {
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.email = email;
         this.facebook = facebook;
         this.birthday = birthday;
+        this.location = location;
         this.photo = photo;
     }
 
@@ -68,6 +67,14 @@ public class Contact {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getPhoto() {
