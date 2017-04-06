@@ -3,6 +3,7 @@ package io.github.k46f.kontakti;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +25,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -40,15 +49,21 @@ public class ViewContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
     private final static String NAME_FOR_CONTACT_LOCATION = "location";
-    private String contactId;
+    private String contactId, accountID;
     private final static String EDIT_SUCCESS = "Contact edited success!";
 
     Context ctx = this;
+    SharedPreferences gAccountSettings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_contact);
+
+        gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
+
+        accountID = gAccountSettings.getString("accountID", null);
 
         // Show back button in action bar, boolena method to go back is at the end of activity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,9 +79,6 @@ public class ViewContact extends AppCompatActivity {
         fullName = (TextView) findViewById(R.id.fullname);
         photoView = (ImageView) findViewById(R.id.photoView);
 
-        DatabaseManager dbm = new DatabaseManager(context);
-        dbm.openDb();
-
         Intent intent = getIntent();
 
         String contactIdMain = intent.getStringExtra(MainActivity.CONTACT_ID);
@@ -81,19 +93,37 @@ public class ViewContact extends AppCompatActivity {
             ktoast.show();
         }
 
-        fullName.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_NAME));
-        addressView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_ADDRESS));
-        emailView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_EMAIL));
-        facebookView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_FACEBOOK));
-        birthdayView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_BIRTHDAY));
-        phoneView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_PHONE));
-        locationView.setText(dbm.getSingleField(contactId, NAME_FOR_CONTACT_LOCATION));
+        DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID+"/"+contactId);
 
-        byte[] photo = dbm.getContactPhoto(contactId);
-        Bitmap contactPhoto = BitmapFactory.decodeByteArray(photo, 0, photo.length);
-        photoView.setImageBitmap(contactPhoto);
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                Contact contact = dataSnapshot.getValue(Contact.class);
 
-        dbm.closeDb();
+                fullName.setText(contact.getName());
+                addressView.setText(contact.getAddress());
+                emailView.setText(contact.getEmail());
+                facebookView.setText(contact.getFacebook());
+                birthdayView.setText(contact.getBirthday());
+                phoneView.setText(contact.getPhone());
+                locationView.setText(contact.getLocation());
+
+                byte[] decodedString = Base64.decode(contact.getPhoto(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                photoView.setImageBitmap(decodedByte);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+
+        listViewRef.addValueEventListener(postListener);
+
     }
 
     public void phoneClick(View view){
