@@ -88,9 +88,6 @@ public class ViewContact extends AppCompatActivity {
             contactId = contactIdMain;
         } else {
             contactId = contactIdEdit;
-
-            Toast ktoast = Toast.makeText(this, EDIT_SUCCESS, Toast.LENGTH_LONG);
-            ktoast.show();
         }
 
         DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID+"/"+contactId);
