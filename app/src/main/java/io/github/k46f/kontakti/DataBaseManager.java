@@ -80,35 +80,6 @@ class DatabaseManager extends SQLiteOpenHelper {
         return dataBase.insert(TABLE_NAME, null, kValues);
     }
 
-
-    ArrayList<Contact> readAllContacts() throws Exception {
-
-        String[] columns = new String[] {
-                NAME_FOR_CONTACT_NAME,
-                NAME_FOR_CONTACT_PHONE,
-                NAME_FOR_CONTACT_ADDRESS,
-                NAME_FOR_CONTACT_EMAIL,
-                NAME_FOR_CONTACT_FACEBOOK,
-                NAME_FOR_CONTACT_BIRTHDAY,
-                NAME_FOR_CONTACT_ID,
-                NAME_FOR_CONTACT_PHOTO,
-                NAME_FOR_CONTACT_LOCATION
-        };
-
-        Cursor cursor = dataBase.query(TABLE_NAME, columns, null, null, null, null, null);
-
-        ArrayList<Contact> contacts = new ArrayList<>();
-
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-
-            Contact contact = new Contact(cursor);
-            contacts.add(contact);
-
-        }
-        cursor.close();
-        return contacts;
-    }
-
     String getSingleField (String idContact, String field) {
 
         Cursor cursor = dataBase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE contact_id="+idContact+"", null);
