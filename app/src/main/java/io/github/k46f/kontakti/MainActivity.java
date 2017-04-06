@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
@@ -12,12 +14,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     Context ctx = this;
 
     SharedPreferences gAccountSettings;
+
+    FirebaseListAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +60,27 @@ public class MainActivity extends AppCompatActivity {
             this.finish();
         }
 
-        // DataBasemanager is a SQLiteOpenHelper class connecting to SQLite
-        DatabaseManager dbm = new DatabaseManager(this);
-        // Get access to the underlying writeable database
-        SQLiteDatabase db = dbm.getWritableDatabase();
-        // Query for items from the database and get a cursor back
-        Cursor contactsFillCursor = db.rawQuery("SELECT rowid _id,* FROM contacts", null);
+
 
         // Find ListView to populate
         ListView kontakti_listView = (ListView) findViewById(R.id.kontakti_listView);
-        // Setup cursor adapter using cursor from last step
-        CursorAdapterManager contactsAdapter = new CursorAdapterManager(this, contactsFillCursor);
-        // Attach cursor adapter to the ListView
-        kontakti_listView.setAdapter(contactsAdapter);
+
+        DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID);
+
+        FirebaseListAdapter mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class, R.layout.contacts_item_list_view, listViewRef) {
+            @Override
+            protected void populateView(View view, Contact contact, int position) {
+                ((TextView)view.findViewById(R.id.kontakti_name)).setText(contact.getName());
+                ((TextView)view.findViewById(R.id.kontakti_phone)).setText(contact.getPhone());
+
+                byte[] decodedString = Base64.decode(contact.getPhoto(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                ((ImageView)view.findViewById(R.id.kontakti_avatar)).setImageBitmap(decodedByte);
+            }
+        };
+        kontakti_listView.setAdapter(mAdapter);
+
+
 
         kontakti_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -201,4 +222,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException | InterruptedException e) { e.printStackTrace(); }
         return false;
     }
+
+
 }
