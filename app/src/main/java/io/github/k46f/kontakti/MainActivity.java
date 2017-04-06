@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID);
 
-        FirebaseListAdapter mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class, R.layout.contacts_item_list_view, listViewRef) {
+        final FirebaseListAdapter mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class, R.layout.contacts_item_list_view, listViewRef) {
             @Override
             protected void populateView(View view, Contact contact, int position) {
                 ((TextView)view.findViewById(R.id.kontakti_name)).setText(contact.getName());
@@ -85,17 +85,9 @@ public class MainActivity extends AppCompatActivity {
         kontakti_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Context context = getApplicationContext();
+                String contact_id = mAdapter.getRef(position).getKey();
 
-                DatabaseManager dbm = new DatabaseManager(context);
-                SQLiteDatabase db = dbm.getWritableDatabase();
-                Cursor onClickListView = db.rawQuery("SELECT contact_id FROM contacts", null);
-                onClickListView.moveToPosition(position);
-                int data = onClickListView.getColumnIndexOrThrow(NAME_FOR_CONTACT_ID);
-                String contact_id = onClickListView.getString(data);
-                onClickListView.close();
-
-                Intent intent = new Intent(context, ViewContact.class);
+                Intent intent = new Intent(ctx, ViewContact.class);
                 intent.putExtra(CONTACT_ID, contact_id);
                 startActivity(intent);
             }
