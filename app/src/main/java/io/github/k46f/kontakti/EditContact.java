@@ -201,9 +201,9 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
                 Context context = getApplicationContext();
 
-                DatabaseManager dbm = new DatabaseManager(context);
-                dbm.openDb();
-                dbm.deleteContact(contactId);
+                FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference editReference = fbDatabase.getReference("users/"+accountID+"/"+contactId);
+                editReference.setValue(null);
 
                 Intent mainActivityIntent = new Intent(context, MainActivity.class);
                 startActivity(mainActivityIntent);
