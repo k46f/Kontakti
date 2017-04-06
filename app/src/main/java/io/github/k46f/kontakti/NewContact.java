@@ -32,6 +32,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -122,8 +124,9 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
             Contact contact = new Contact(textName, textPhone, textAddress, textEmail, textFacebook,
                     textBirthday, textLocation, encodedImage);
 
-            FirebaseManager fbManager = new FirebaseManager(accountID);
-            fbManager.addNewContact(contact);
+            FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference editReference = fbDatabase.getReference("users");
+            editReference.child(accountID).push().setValue(contact);
 
             Intent finish = new Intent(context, MainActivity.class);
             startActivity(finish);
