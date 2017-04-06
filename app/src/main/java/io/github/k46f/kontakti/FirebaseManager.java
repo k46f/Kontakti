@@ -17,4 +17,8 @@ public class FirebaseManager {
         fDatabase = FirebaseDatabase.getInstance();
         usersReference = fDatabase.getReference(USERS_REFERENCE);
     }
+
+    public void addNewContact(Contact contact){
+        usersReference.child(googleId).push().setValue(contact);
+    }
 }
