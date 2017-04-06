@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,17 +26,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
     public final static String CONTACT_ID = ">>> Pass Contact Id";
     private final static String NAME_FOR_CONTACT_ID = "contact_id";
     private String accountID, accountPhoto;
+    private GoogleApiClient mGoogleApiClient;
 
     Context ctx = this;
 
@@ -49,6 +57,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
         gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
 
         accountID = gAccountSettings.getString("accountID", null);
@@ -59,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(gSignIn);
             this.finish();
         }
-
-
 
         // Find ListView to populate
         ListView kontakti_listView = (ListView) findViewById(R.id.kontakti_listView);
@@ -156,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.account_sign_out:
-                        Toast.makeText(MainActivity.this, "Keyword!", Toast.LENGTH_SHORT).show();
+                        signOut();
                         return true;
                     default:
                         return false;
@@ -204,5 +223,31 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    private void signOut() {
+
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        SharedPreferences.Editor editor = gAccountSettings.edit();
+                        editor.putString("accountID", null);
+                        editor.putString("personName", null);
+                        editor.putString("personEmail", null);
+                        editor.putString("personPhoto", null);
+                        editor.apply();
+
+                        Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(),Login.class);
+                        startActivity(i);
+
+                        finish();
+                    }
+                });
+    }
+
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast connectionFailed = Toast.makeText(this, "Connection failed"+connectionResult, Toast.LENGTH_LONG);
+        connectionFailed.show();
+    }
 
 }
