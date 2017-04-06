@@ -98,7 +98,7 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
         Bitmap contactPhoto = drawablePhoto.getBitmap();
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        contactPhoto.compress(Bitmap.CompressFormat.JPEG, 35, stream);
         byte[] photoInByte = stream.toByteArray();
         String encodedImage = Base64.encodeToString(photoInByte, Base64.DEFAULT);
 
@@ -127,6 +127,10 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
 
             Intent finish = new Intent(context, MainActivity.class);
             startActivity(finish);
+
+            Toast saved = Toast.makeText(context, "Contact Saved", Toast.LENGTH_LONG);
+            saved.show();
+
             this.finish();
         }
     }
