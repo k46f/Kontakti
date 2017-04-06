@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,11 +54,18 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
 
     private GoogleApiClient mGoogleApiClient;
 
+    private String accountID;
+
+    SharedPreferences gAccountSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_contact);
+
+        gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
+
+        accountID = gAccountSettings.getString("accountID", null);
 
         // Create an instance of GoogleAPIClient.
         if (mGoogleApiClient == null) {
@@ -90,7 +99,8 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte photoInByte[] = stream.toByteArray();
+        byte[] photoInByte = stream.toByteArray();
+        String encodedImage = Base64.encodeToString(photoInByte, Base64.DEFAULT);
 
         Context context = getApplicationContext();
 
@@ -109,27 +119,15 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
 
         } else {
 
-            try {
-                DatabaseManager dbm = new DatabaseManager(context);
-                dbm.openDb();
-                long result = dbm.register(textName, textPhone, textAddress, textEmail, textFacebook,
-                        textBirthday, photoInByte, textLocation);
-                dbm.closeDb();
-                if (result > 0) {
+            Contact contact = new Contact(textName, textPhone, textAddress, textEmail, textFacebook,
+                    textBirthday, textLocation, encodedImage);
 
-                    Intent successIntent = new Intent(context, MainActivity.class);
-                    startActivity(successIntent);
+            FirebaseManager fbManager = new FirebaseManager(accountID);
+            fbManager.addNewContact(contact);
 
-                    Toast kToast = Toast.makeText(context, NEW_SUCCESS_MESSAGE, Toast.LENGTH_LONG);
-                    kToast.show();
-
-                }
-            } catch (Exception e) {
-
-                Toast kToast = Toast.makeText(context, e.toString(), Toast.LENGTH_LONG);
-                kToast.show();
-            }
-
+            Intent finish = new Intent(context, MainActivity.class);
+            startActivity(finish);
+            this.finish();
         }
     }
 
