@@ -240,8 +240,9 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         Bitmap contactPhoto = drawablePhoto.getBitmap();
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        contactPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte photoInByte[] = stream.toByteArray();
+        contactPhoto.compress(Bitmap.CompressFormat.JPEG, 35, stream);
+        byte[] photoInByte = stream.toByteArray();
+        String encodedImage = Base64.encodeToString(photoInByte, Base64.DEFAULT);
 
         if (textName.equals("")){
 
@@ -250,24 +251,23 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
         } else {
 
-            try {
-                DatabaseManager dbm = new DatabaseManager(ctx);
-                dbm.openDb();
-                int result = dbm.updateContact(textName, textPhone, textAddress, textEmail,
-                        textFacebook, textBirthday, contactId, photoInByte, textLocation);
-                dbm.closeDb();
-                if (result > 0) {
+            Contact contact = new Contact(textName, textPhone, textAddress, textEmail, textFacebook,
+                    textBirthday, textLocation, encodedImage);
 
-                    Intent successIntent = new Intent(getApplicationContext(), ViewContact.class);
-                    successIntent.putExtra(RETURN_EDIT, contactId);
-                    startActivity(successIntent);
-                }
-            } catch (Exception exception) {
-                Toast kToast = Toast.makeText(ctx, exception.toString(), Toast.LENGTH_LONG);
-                kToast.show();
-            }
+            FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference editReference = fbDatabase.getReference("users/"+accountID+"/"+contactId);
+            editReference.setValue(contact);
+
+            Intent finish = new Intent(ctx, MainActivity.class);
+            startActivity(finish);
+
+            Toast saved = Toast.makeText(ctx, "Contact Saved", Toast.LENGTH_LONG);
+            saved.show();
+
+            this.finish();
         }
     }
+
     // Method to go back
     @Override
     public boolean onSupportNavigateUp(){
