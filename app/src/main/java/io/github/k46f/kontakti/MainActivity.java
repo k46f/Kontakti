@@ -84,7 +84,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID);
 
-        final FirebaseListAdapter mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class, R.layout.contacts_item_list_view, listViewRef) {
+        final FirebaseListAdapter mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class,
+                R.layout.contacts_item_list_view, listViewRef.orderByChild("fav").equalTo("false")) {
+            
             @Override
             protected void populateView(View view, Contact contact, int position) {
                 ((TextView)view.findViewById(R.id.kontakti_name)).setText(contact.getName());
