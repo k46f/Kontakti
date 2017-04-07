@@ -18,11 +18,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
@@ -42,8 +44,9 @@ public class ViewContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
     private final static String NAME_FOR_CONTACT_LOCATION = "location";
-    private String contactId, accountID, coordinates;
+    private String contactId, accountID, coordinates, favorites;
     private final static String EDIT_SUCCESS = "Contact edited success!";
+    private String favSwitch = "false";
 
     Context ctx = this;
     SharedPreferences gAccountSettings;
@@ -54,8 +57,8 @@ public class ViewContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_contact);
 
-        gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
 
+        gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
         accountID = gAccountSettings.getString("accountID", null);
 
         // Show back button in action bar, boolena method to go back is at the end of activity
@@ -97,6 +100,7 @@ public class ViewContact extends AppCompatActivity {
                 birthdayView.setText(contact.getBirthday());
                 phoneView.setText(contact.getPhone());
                 coordinates = contact.getLocation();
+                favorites = contact.getFav();
 
                 byte[] decodedString = Base64.decode(contact.getPhoto(), Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -215,6 +219,35 @@ public class ViewContact extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_view_contact, menu);
+
+        if (!Objects.equals(favSwitch, favorites)){
+
+            favSwitch = favorites;
+            menu.getItem(1).setIcon(R.drawable.ic_star_white_24dp);
+        }
+
         return true;
+    }
+
+    public void favButtonVc(MenuItem mi){
+
+        if (Objects.equals(favSwitch, "false")){
+            favSwitch = "true";
+            mi.setIcon(R.drawable.ic_star_white_24dp);
+            DatabaseReference favref = FirebaseDatabase.getInstance().getReference("users/"+accountID+"/"+contactId);
+            favref.child("fav").setValue("true");
+            Toast addFav = Toast.makeText(ctx, "Contact Added To Favorites", Toast.LENGTH_LONG);
+            addFav.show();
+        } else {
+            if (Objects.equals(favSwitch, "true")){
+                favSwitch = "false";
+                mi.setIcon(R.drawable.ic_star_border_white_24dp);
+                DatabaseReference favref = FirebaseDatabase.getInstance().getReference("users/"+accountID+"/"+contactId);
+                favref.child("fav").setValue("false");
+                Toast removeFav = Toast.makeText(ctx, "Contact Removed From Favorites", Toast.LENGTH_LONG);
+                removeFav.show();
+            }
+        }
+
     }
 }
