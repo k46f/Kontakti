@@ -9,11 +9,12 @@ public class Contact {
     String birthday;
     String location;
     String photo;
+    String fav;
 
     public Contact() {
     }
 
-    public Contact(String name, String phone, String address, String email, String facebook, String birthday, String location, String photo) {
+    public Contact(String name, String phone, String address, String email, String facebook, String birthday, String location, String photo, String fav) {
         this.name = name;
         this.phone = phone;
         this.address = address;
@@ -22,6 +23,7 @@ public class Contact {
         this.birthday = birthday;
         this.location = location;
         this.photo = photo;
+        this.fav = fav;
     }
 
     public String getName() {
@@ -86,5 +88,13 @@ public class Contact {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getFav() {
+        return fav;
+    }
+
+    public void setFav(String fav) {
+        this.fav = fav;
     }
 }
