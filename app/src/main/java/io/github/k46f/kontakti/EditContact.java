@@ -120,6 +120,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
                     birthdayText.setText(contact.getBirthday());
                     phoneText.setText(contact.getPhone());
                     locationText.setText(contact.getLocation());
+                    fav = contact.getFav();
 
                     byte[] decodedString = Base64.decode(contact.getPhoto(), Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
