@@ -18,11 +18,6 @@ class SaveContactTask extends AsyncTask<Void, Contact, Boolean> {
     }
 
     @Override
-    protected void onPreExecute() {
-        pb.setVisibility(ProgressBar.VISIBLE);
-    }
-
-    @Override
     protected Boolean doInBackground(Void... params) {
         FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
         DatabaseReference editReference = fbDatabase.getReference("users");

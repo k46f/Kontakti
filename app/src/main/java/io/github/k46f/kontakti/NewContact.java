@@ -122,6 +122,8 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
 
         } else {
 
+            pb.setVisibility(ProgressBar.VISIBLE);
+
             Contact contact = new Contact(textName, textPhone, textAddress, textEmail, textFacebook,
                     textBirthday, textLocation, encodedImage);
 
