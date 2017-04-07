@@ -65,6 +65,8 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
 
     private String contactId, accountID;
 
+    private String fav;
+
     private Context ctx = this;
 
     SharedPreferences gAccountSettings;
@@ -252,7 +254,7 @@ public class EditContact extends AppCompatActivity implements GoogleApiClient.Co
         } else {
 
             Contact contact = new Contact(textName, textPhone, textAddress, textEmail, textFacebook,
-                    textBirthday, textLocation, encodedImage);
+                    textBirthday, textLocation, encodedImage, fav);
 
             FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
             DatabaseReference editReference = fbDatabase.getReference("users/"+accountID+"/"+contactId);

@@ -54,6 +54,8 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
 
     private String accountID;
 
+    private String fav = "false";
+
     SharedPreferences gAccountSettings;
 
     ProgressBar pb;
@@ -125,7 +127,7 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
             pb.setVisibility(ProgressBar.VISIBLE);
 
             Contact contact = new Contact(textName, textPhone, textAddress, textEmail, textFacebook,
-                    textBirthday, textLocation, encodedImage);
+                    textBirthday, textLocation, encodedImage, fav);
 
             new SaveContactTask(contact, pb, accountID).execute();
 
