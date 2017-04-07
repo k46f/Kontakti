@@ -258,6 +258,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (Objects.equals(favSwitch, "false")){
             favSwitch = "true";
 
+            mi.setIcon(R.drawable.ic_star_white_24dp);
+
             kontakti_listView.setAdapter(null);
 
             DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID);
@@ -280,6 +282,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         } else {
             if (Objects.equals(favSwitch, "true")){
                 favSwitch = "false";
+
+                mi.setIcon(R.drawable.ic_star_border_white_24dp);
 
                 kontakti_listView.setAdapter(null);
                 DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID);
