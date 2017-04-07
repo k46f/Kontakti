@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (accountID == null){
             Intent gSignIn = new Intent(ctx, Login.class);
             startActivity(gSignIn);
-            this.finish();
+            finish();
         }
 
         // Find ListView to populate
