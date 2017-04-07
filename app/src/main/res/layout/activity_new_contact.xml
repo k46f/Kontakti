@@ -145,5 +145,11 @@
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_camera_enhance_white_24dp" />
 
+    <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbProgressAction" />
+
 </RelativeLayout>
 </ScrollView>

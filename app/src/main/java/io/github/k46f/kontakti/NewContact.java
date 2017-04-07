@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -60,10 +61,15 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
 
     SharedPreferences gAccountSettings;
 
+    ProgressBar pb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_contact);
+
+        pb = (ProgressBar) findViewById(R.id.pbProgressAction);
+        pb.setVisibility(ProgressBar.INVISIBLE);
 
         gAccountSettings = getSharedPreferences("gAccountSettings", Context.MODE_PRIVATE);
 
@@ -124,9 +130,7 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
             Contact contact = new Contact(textName, textPhone, textAddress, textEmail, textFacebook,
                     textBirthday, textLocation, encodedImage);
 
-            FirebaseDatabase fbDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference editReference = fbDatabase.getReference("users");
-            editReference.child(accountID).push().setValue(contact);
+            new SaveContactTask(contact, pb, accountID).execute();
 
             Intent finish = new Intent(context, MainActivity.class);
             startActivity(finish);
@@ -134,7 +138,7 @@ public class NewContact extends AppCompatActivity implements GoogleApiClient.Con
             Toast saved = Toast.makeText(context, "Contact Saved", Toast.LENGTH_LONG);
             saved.show();
 
-            this.finish();
+            finish();
         }
     }
 
