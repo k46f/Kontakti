@@ -185,7 +185,7 @@ public class ViewContact extends AppCompatActivity {
         }
     }
 
-    public void locationClick(View view){
+    public void locationClick(MenuItem mi){
         if (!Objects.equals(locationView.getText().toString(), "")) {
 
             Uri gmmIntentUri = Uri.parse("geo:" + locationView.getText().toString());

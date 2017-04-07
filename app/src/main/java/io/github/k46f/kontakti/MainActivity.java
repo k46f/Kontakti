@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     SharedPreferences gAccountSettings;
 
-    FirebaseListAdapter mAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
