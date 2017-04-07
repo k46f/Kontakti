@@ -8,10 +8,17 @@
         android:title="Account">
     </item>
     <item
+        android:id="@+id/miShowFav"
+        android:icon="@drawable/ic_star_white_24dp"
+        app:showAsAction="ifRoom"
+        android:onClick="favButton"
+        android:title="Show Favorites">
+    </item>
+    <item
         android:id="@+id/miAdd"
         android:icon="@drawable/ic_add_white_24dp"
         app:showAsAction="ifRoom"
         android:onClick="addNew"
-        android:title="Add">
+        android:title="Add New">
     </item>
 </menu>

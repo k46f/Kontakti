@@ -34,8 +34,10 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -45,10 +47,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private String accountID, accountPhoto;
     private GoogleApiClient mGoogleApiClient;
     private String favSwitch = "false";
+    ListView kontakti_listView;
 
     Context ctx = this;
 
     SharedPreferences gAccountSettings;
+    private FirebaseListAdapter mAdapter;
 
 
     @Override
@@ -80,13 +84,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             finish();
         }
 
-        // Find ListView to populate
-        ListView kontakti_listView = (ListView) findViewById(R.id.kontakti_listView);
+        kontakti_listView = (ListView) findViewById(R.id.kontakti_listView);
 
         DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID);
 
-        final FirebaseListAdapter mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class,
-                R.layout.contacts_item_list_view, listViewRef.orderByChild("fav").equalTo(favSwitch)) {
+        mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class,
+                R.layout.contacts_item_list_view, listViewRef) {
 
             @Override
             protected void populateView(View view, Contact contact, int position) {
@@ -249,6 +252,56 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast connectionFailed = Toast.makeText(this, "Connection failed"+connectionResult, Toast.LENGTH_LONG);
         connectionFailed.show();
+    }
+
+    public void favButton(MenuItem mi){
+        if (Objects.equals(favSwitch, "false")){
+            favSwitch = "true";
+
+            kontakti_listView.setAdapter(null);
+
+            DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID);
+            Query listViewRefFav = listViewRef.orderByChild("fav").equalTo("true");
+
+            mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class,
+                    R.layout.contacts_item_list_view, listViewRefFav) {
+
+                @Override
+                protected void populateView(View view, Contact contact, int position) {
+                    ((TextView)view.findViewById(R.id.kontakti_name)).setText(contact.getName());
+                    ((TextView)view.findViewById(R.id.kontakti_phone)).setText(contact.getPhone());
+
+                    byte[] decodedString = Base64.decode(contact.getPhoto(), Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    ((ImageView)view.findViewById(R.id.kontakti_avatar)).setImageBitmap(decodedByte);
+                }
+            };
+            kontakti_listView.setAdapter(mAdapter);
+        } else {
+            if (Objects.equals(favSwitch, "true")){
+                favSwitch = "false";
+
+                kontakti_listView.setAdapter(null);
+                DatabaseReference listViewRef = FirebaseDatabase.getInstance().getReference("users/"+accountID);
+
+                mAdapter = new FirebaseListAdapter<Contact>(this, Contact.class,
+                        R.layout.contacts_item_list_view, listViewRef) {
+
+                    @Override
+                    protected void populateView(View view, Contact contact, int position) {
+                        ((TextView)view.findViewById(R.id.kontakti_name)).setText(contact.getName());
+                        ((TextView)view.findViewById(R.id.kontakti_phone)).setText(contact.getPhone());
+
+                        byte[] decodedString = Base64.decode(contact.getPhoto(), Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        ((ImageView)view.findViewById(R.id.kontakti_avatar)).setImageBitmap(decodedByte);
+                    }
+                };
+                kontakti_listView.setAdapter(mAdapter);
+            }
+        }
+
+
     }
 
 }
