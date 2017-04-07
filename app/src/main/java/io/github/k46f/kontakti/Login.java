@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
                 Intent signInSuccess = new Intent(ctx, MainActivity.class);
                 startActivity(signInSuccess);
-                this.finish();
+                finish();
             }
             handleSignInResult(result);
         }
