@@ -4,27 +4,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +32,7 @@ public class ViewContact extends AppCompatActivity {
     public final static String CONTACT_ID = ">>> Pass Contact Id";
 
     private TextView fullName;
-    private EditText phoneView, addressView, emailView, facebookView, birthdayView, locationView;
+    private EditText phoneView, addressView, emailView, facebookView, birthdayView;
     private ImageView photoView;
 
     private final static String NAME_FOR_CONTACT_NAME = "name";
@@ -49,7 +42,7 @@ public class ViewContact extends AppCompatActivity {
     private final static String NAME_FOR_CONTACT_FACEBOOK = "facebook";
     private final static String NAME_FOR_CONTACT_BIRTHDAY = "birthday";
     private final static String NAME_FOR_CONTACT_LOCATION = "location";
-    private String contactId, accountID;
+    private String contactId, accountID, coordinates;
     private final static String EDIT_SUCCESS = "Contact edited success!";
 
     Context ctx = this;
@@ -75,7 +68,6 @@ public class ViewContact extends AppCompatActivity {
         emailView = (EditText) findViewById(R.id.emailView);
         facebookView = (EditText) findViewById(R.id.facebookView);
         birthdayView = (EditText) findViewById(R.id.birthdayView);
-        locationView = (EditText) findViewById(R.id.locationView);
         fullName = (TextView) findViewById(R.id.fullname);
         photoView = (ImageView) findViewById(R.id.photoView);
 
@@ -104,7 +96,7 @@ public class ViewContact extends AppCompatActivity {
                 facebookView.setText(contact.getFacebook());
                 birthdayView.setText(contact.getBirthday());
                 phoneView.setText(contact.getPhone());
-                locationView.setText(contact.getLocation());
+                coordinates = contact.getLocation();
 
                 byte[] decodedString = Base64.decode(contact.getPhoto(), Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -186,9 +178,9 @@ public class ViewContact extends AppCompatActivity {
     }
 
     public void locationClick(MenuItem mi){
-        if (!Objects.equals(locationView.getText().toString(), "")) {
+        if (!Objects.equals(coordinates, "")) {
 
-            Uri gmmIntentUri = Uri.parse("geo:" + locationView.getText().toString());
+            Uri gmmIntentUri = Uri.parse("geo:" + coordinates);
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             if (mapIntent.resolveActivity(getPackageManager()) != null) {

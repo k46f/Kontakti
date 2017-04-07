@@ -130,25 +130,5 @@
             android:id="@+id/birthdayView"/>
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/locationLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/birthdayLayout"
-        android:onClick="locationClick">
-
-        <EditText
-            android:longClickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Location"
-            android:inputType="date"
-            android:id="@+id/locationView"
-            android:onClick="locationClick"/>
-    </android.support.design.widget.TextInputLayout>
-
 </RelativeLayout>
 </ScrollView>
