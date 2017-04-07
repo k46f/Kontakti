@@ -197,52 +197,6 @@ public class ViewContact extends AppCompatActivity {
         }
     }
 
-    public void showPhoto(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        final AlertDialog dialog = builder.create();
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogLayout = inflater.inflate(R.layout.photo_layout, null);
-        dialog.setView(dialogLayout);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        dialog.show();
-
-        ImageView image = (ImageView) dialog.findViewById(R.id.contactPhotoImage);
-
-        DatabaseManager dbm = new DatabaseManager(ctx);
-        dbm.openDb();
-
-        byte[] photo = dbm.getContactPhoto(contactId);
-        Bitmap icon = BitmapFactory.decodeByteArray(photo, 0, photo.length);
-
-        image.setImageBitmap(icon);
-
-        dbm.closeDb();
-
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface d) {
-
-                ImageView image = (ImageView) dialog.findViewById(R.id.contactPhotoImage);
-
-                DatabaseManager dbm = new DatabaseManager(ctx);
-                dbm.openDb();
-
-                byte[] photo = dbm.getContactPhoto(contactId);
-                Bitmap icon = BitmapFactory.decodeByteArray(photo, 0, photo.length);
-
-                dbm.closeDb();
-
-                float imageWidthInPX = (float)image.getWidth();
-
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
-                        Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
-                image.setLayoutParams(layoutParams);
-            }
-        });
-    }
-
     public void editContact(MenuItem mi) {
         Intent firstIntent = getIntent();
         String contactId = firstIntent.getStringExtra(MainActivity.CONTACT_ID);
