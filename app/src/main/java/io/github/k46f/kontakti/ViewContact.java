@@ -190,6 +190,8 @@ public class ViewContact extends AppCompatActivity {
             if (mapIntent.resolveActivity(getPackageManager()) != null) {
                 startActivity(mapIntent);
             }
+        } else {
+            Toast.makeText(ctx, "No location available", Toast.LENGTH_LONG).show();
         }
     }
 
